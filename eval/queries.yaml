@@ -1,0 +1,13 @@
+# Labelled search queries for `make eval`. Fill relevant ids once the data exists.
+# relevant: resource ids that a clinician would expect in the top 5.
+queries:
+  - query: abnormal chest x-ray
+    relevant: []
+  - query: CXR showing consolidation
+    relevant: []
+  - query: poorly controlled blood sugar
+    relevant: []
+  - query: patients discharged after heart failure
+    relevant: []
+  - query: elevated HbA1c
+    relevant: []
