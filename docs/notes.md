@@ -2,6 +2,36 @@
 
 Shared scratchpad. Add what you look up and what breaks, with the date. Most of the write-up comes from here.
 
+## Task 2 notes (2026-11-21)
+
+`app/fhir/`: `mappers.py` (canonical model -> resource dict), `bundle.py` (validate each
+resource, assemble, validate the bundle), `run.py` (reads `patients`/`records`, writes
+`bundles`, `validation_errors` and `reports/validation.md`).
+
+Concepts used:
+- **R4 resource choice**: narrative documents -> `DocumentReference` (LOINC 18842-5
+  discharge summary, 11506-3 progress note); imaging -> `DiagnosticReport` (v2-0074 `RAD`)
+  with `conclusion` + `presentedForm`; labs -> `Observation` grouped under a `LAB`
+  DiagnosticReport via `result[]`.
+- **Observation details**: `valueQuantity` with UCUM codes (`10^3/uL` is `10*3/uL` in UCUM),
+  `referenceRange.low/high` as Quantities, `interpretation` from v3-ObservationInterpretation
+  (H/L/N).
+- **`DocumentReference.date` is an `instant`**, so it needs a time and zone; other dates
+  (`effectiveDateTime`, `birthDate`) accept date-only values.
+- **Validation granularity**: fhir.resources validates structure (required fields,
+  cardinality, types), not terminology; a bogus LOINC code would still pass.
+
+Decisions: see decisions.md rows 20-24 (row 19 is the Task 4 fixtures entry).
+
+Problems hit:
+- The first lab reports repeated each value three times (conclusion, `result[]`,
+  `presentedForm`) in the text search indexes. Dropped `presentedForm` for labs and kept
+  only the abnormal values in the conclusion (decision 21).
+- The `patients` table stores `full_name`, not given/family; Task 1 always makes the family
+  name the last token, so `run.py` splits on the last space.
+- Checked compatibility by running the search stage's real `chunk_bundle` over all
+  18 bundles: 48 chunks, one per DocumentReference/DiagnosticReport, no dangling references.
+
 ## Task 1 notes (2026-11-21)
 
 Pipeline: `app/ingest/` runs five pure stages (parse -> normalize -> identity -> dedupe ->
