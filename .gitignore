@@ -17,6 +17,8 @@ htmlcov/
 # Generated data (regenerate with `make pipeline`)
 data/ehr.db
 data/chroma/
+data/fixtures.db
+data/chroma-fixtures/
 data/rejected.jsonl
 data/raw/*.json
 !data/raw/ground_truth.json

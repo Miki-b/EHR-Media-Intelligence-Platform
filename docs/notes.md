@@ -62,12 +62,26 @@ Problems hit:
 
 ## FHIR and clinical concepts researched
 
--
+- 2026-11-21 (B) **Bundle `collection` vs `transaction`.** A collection is just a set of resources; a transaction is a batch of requests for a FHIR server. We never POST to a server, so collection is right. Inside a bundle, `urn:uuid:` references resolve against each entry's `fullUrl`, so the bundle is self-contained.
+- 2026-11-21 (B) **Where document text lives.** `DocumentReference.content[].attachment.data` is base64 (`base64Binary`), with `contentType`. Scanned PDFs would be binary here; our synthetic notes are `text/plain`. The chunker decodes text types only and falls back to `description` for anything else.
+- 2026-11-21 (B) **DiagnosticReport anatomy.** `code` (LOINC panel, e.g. 36643-5 "Chest X-ray 2 views", 4548-4 HbA1c), `category` (v2-0074: LAB, RAD), `conclusion` (free-text impression), `result[]` references to `Observation`s, `presentedForm[]` for the full report. Imaging reports have no Observations; labs do.
+- 2026-11-21 (B) **Observation interpretation flags** use v3-ObservationInterpretation codes H / L / N, and `referenceRange.low/high` carry the normal range. We fold these into the parent report's chunk text ("HbA1c: 9.8 % (High; reference 4 %-5.6 %)") so lab values are searchable.
+- 2026-11-21 (B) **Partial dates are legal FHIR.** `date`/`dateTime` can be "2025" or "2025-03". We resolve them to the first day so date filters still work; `DocumentReference.date` is an `instant` and must carry a time.
+- 2026-11-21 (B) **fhir.resources 8.x** exposes R4 as `fhir.resources.R4B`; the top-level package is R5. Validation catches missing required fields (e.g. `Encounter.class`, `DocumentReference.status`) but not clinical sense.
 
 ## Problems hit and how we solved them
 
--
+- 2026-11-21 (B) **Importing torch + sentence-transformers takes ~30 s on the Windows dev laptop**, while loading MiniLM takes 1.4 s and embedding 20 chunks 0.1 s. It is a per-process startup cost, not per-query: the API pays it once at boot, queries take 40-190 ms. Tests use `EMBED_MODEL=hash`, a deterministic bag-of-words embedder, so they never import torch.
+- 2026-11-21 (B) **Hugging Face Hub round-trips on every model load.** Fixed by trying `local_files_only=True` first and only going to the network when the cache is empty.
+- 2026-11-21 (B) **Embeddings do not understand negation.** For "abnormal chest x-ray" the *normal* CXR ("no acute cardiopulmonary abnormality") ranks third, above the consolidation CXR. All three abnormal films are still in the top 5 (recall 1.0), but it is the clearest limitation of pure dense retrieval on clinical text. Hybrid BM25 helps exact terms (CXR, HbA1c) but not negation.
+- 2026-11-21 (B) **Chroma metadata must be scalar.** Dates go in twice: ISO string for display, `YYYYMMDD` int for `$gte`/`$lte` range filters. Chroma also needs `$and` for more than one clause.
+- 2026-11-21 (B) **Precision@5 has a ceiling.** With 2-3 labelled records per query, P@5 cannot exceed 0.4-0.6. results.md prints the ceiling next to the number; MRR and recall are the better signals at this corpus size.
 
 ## Ideas for "with more time"
 
--
+- Cross-encoder reranker (e.g. `ms-marco-MiniLM`) over the top 20 hybrid candidates; handles negation and phrasing far better than bi-encoder cosine alone.
+- Index Observations as first-class hits with a `value` + `flag` facet, so "all patients with HbA1c over 9" becomes a structured filter, not a text match.
+- Query-time patient grouping: one card per patient with the best matching records nested, instead of one card per record.
+- Larger labelled query set (30+) with a second annotator and inter-annotator agreement, plus nDCG.
+- Clinician review of summaries: a small rubric (accuracy, omissions, hallucinations) scored on a sample, which the automated grounding checks cannot replace.
+- Auth, audit logging of searches and PHI access controls before anything near real data.
