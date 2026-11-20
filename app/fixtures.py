@@ -1,10 +1,6 @@
 """Load the committed fixtures into SQLite, writing the same rows Dev A's stages write.
 
-<<<<<<< HEAD
-Task 2 fills `patients` and `bundles`; Task 3 fills `summaries`, keyed by the bundle's
-=======
 Task 1 fills `patients`, Task 2 fills `bundles`, Task 3 fills `summaries`, keyed by the bundle's
->>>>>>> origin/main
 content hash and the prompt version. Downstream code (search index, API, UI) reads
 only those tables, so loading fixtures here lets Dev B build and test without the
 real pipeline. Once the pipeline lands, `make pipeline` replaces these rows.

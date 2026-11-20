@@ -103,7 +103,6 @@ What gets indexed: one chunk per `DocumentReference` (decoded attachment text) a
 `DiagnosticReport` (conclusion, folded `Observation` values with flags and ranges, presented form),
 plus one chunk per AI summary (`Summary/<patient_id>`). Long texts are split into overlapping
 180-word windows and collapsed back to one result per resource.
-<<<<<<< HEAD
 
 ## Clinician UI
 
@@ -123,8 +122,6 @@ search or an open patient can be bookmarked and shared.
   the patient, Esc closes the drawer and returns focus. Focus is trapped inside the drawer; status
   text is announced through live regions; reduced-motion preferences are respected.
 - Empty, loading, no-match and API-down states each say what to do next.
-=======
->>>>>>> origin/main
 
 ## Design decisions
 
