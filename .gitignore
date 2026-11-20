@@ -19,6 +19,7 @@ data/ehr.db
 data/chroma/
 data/rejected.jsonl
 data/raw/*.json
+!data/raw/ground_truth.json
 data/raw/*.csv
 data/raw/notes/*.txt
 reports/*.md

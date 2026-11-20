@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     db_path: Path = ROOT / "data" / "ehr.db"
     chroma_path: Path = ROOT / "data" / "chroma"
     raw_dir: Path = ROOT / "data" / "raw"
+    rejected_path: Path = ROOT / "data" / "rejected.jsonl"
     fixtures_dir: Path = ROOT / "data" / "fixtures"
     reports_dir: Path = ROOT / "reports"
     embed_model: str = "sentence-transformers/all-MiniLM-L6-v2"

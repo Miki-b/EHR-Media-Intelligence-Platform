@@ -72,6 +72,10 @@ class CanonicalRecord(_Model):
     text: str
     code: str | None = None  # LOINC code when known
     flag: Literal["H", "L", "N"] | None = None  # lab abnormality flag from the source
+    # Lab results only (None for other kinds); kept as strings, exactly as cleaned.
+    value: str | None = None  # e.g. "7.8"
+    unit: str | None = None  # e.g. "%", "mg/dL", "10^3/uL"
+    ref_range: str | None = None  # e.g. "4.0-5.6"
     source_file: str
     audit: list[AuditEntry] = Field(default_factory=list)
 

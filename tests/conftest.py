@@ -7,6 +7,7 @@ def _offline_settings(monkeypatch, tmp_path):
     monkeypatch.setenv("LLM_PROVIDER", "mock")
     monkeypatch.setenv("DB_PATH", str(tmp_path / "test.db"))
     monkeypatch.setenv("CHROMA_PATH", str(tmp_path / "chroma"))
+    monkeypatch.setenv("REJECTED_PATH", str(tmp_path / "rejected.jsonl"))
     from app.config import get_settings
 
     get_settings.cache_clear()
