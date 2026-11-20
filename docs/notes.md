@@ -124,6 +124,8 @@ Problems hit:
 - 2026-11-21 **Embeddings do not understand negation.** For "abnormal chest x-ray" the *normal* CXR ("no acute cardiopulmonary abnormality") ranks third, above the consolidation CXR. All three abnormal films are still in the top 5 (recall 1.0), but it is the clearest limitation of pure dense retrieval on clinical text. Hybrid BM25 helps exact terms (CXR, HbA1c) but not negation.
 - 2026-11-21 **Chroma metadata must be scalar.** Dates go in twice: ISO string for display, `YYYYMMDD` int for `$gte`/`$lte` range filters. Chroma also needs `$and` for more than one clause.
 - 2026-11-21 **Precision@5 has a ceiling.** With 2-3 labelled records per query, P@5 cannot exceed 0.4-0.6. results.md prints the ceiling next to the number; MRR and recall are the better signals at this corpus size.
+- 2026-11-21 **Headless Chromium on Windows will not render narrower than ~500 px** with `--window-size`, so phone screenshots looked clipped. Driving Edge over the DevTools protocol with `Emulation.setDeviceMetricsOverride` gives a true 390 px viewport; `document.documentElement.scrollWidth === innerWidth` confirmed no horizontal overflow.
+- 2026-11-21 **Summary-chunk snippets read like data** ("document 2025-02-09: Discharged…") because the embedded summary text is a flattened record list. The UI shows them in the summary voice; a friendlier summary_text format is a small follow-up on the search side.
 
 ## Ideas for "with more time"
 
