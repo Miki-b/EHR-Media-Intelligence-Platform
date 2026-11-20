@@ -1,0 +1,1081 @@
+{
+  "_comment": "Answer key for tests only. The ingestion code must never read this file.",
+  "seed": 42,
+  "patients": [
+    {
+      "key": "P01",
+      "given_name": "William",
+      "family_name": "Fowler",
+      "name": "William Fowler",
+      "dob": "1956-11-14",
+      "gender": "male",
+      "story": "chf",
+      "mrn_variants": [
+        "MRN-013280",
+        "MRN-084810"
+      ],
+      "mrns_normalized": [
+        "MRN-013280",
+        "MRN-084810"
+      ],
+      "name_variants": [
+        "Bill Fowler",
+        "William Fowler"
+      ],
+      "demographics": [
+        "ehr_export.json#/0"
+      ],
+      "records": [
+        "ehr_export.json#/0/documents/0",
+        "ehr_export.json#/0/imaging/0",
+        "lab_results.csv#row=16",
+        "lab_results.csv#row=17",
+        "lab_results.csv#row=18"
+      ]
+    },
+    {
+      "key": "P02",
+      "given_name": "Courtney",
+      "family_name": "Hill",
+      "name": "Courtney Hill",
+      "dob": "1955-04-26",
+      "gender": "female",
+      "story": "pneumonia",
+      "mrn_variants": [
+        " 015592 ",
+        "MRN-015592",
+        "mrn-015592"
+      ],
+      "mrns_normalized": [
+        "MRN-015592"
+      ],
+      "name_variants": [
+        "Courtney Hill",
+        "Courtney\u00a0Hill",
+        "HILL, COURTNEY"
+      ],
+      "demographics": [
+        "ehr_export.json#/1"
+      ],
+      "records": [
+        "ehr_export.json#/1/documents/0",
+        "ehr_export.json#/1/imaging/0",
+        "lab_results.csv#row=10",
+        "notes/scan_009.txt"
+      ]
+    },
+    {
+      "key": "P03",
+      "given_name": "Michael",
+      "family_name": "Doyle",
+      "name": "Michael Doyle",
+      "dob": "1999-03-02",
+      "gender": "male",
+      "story": "dka",
+      "mrn_variants": [
+        "MRN-004278"
+      ],
+      "mrns_normalized": [
+        "MRN-004278"
+      ],
+      "name_variants": [
+        "Michael Doyle"
+      ],
+      "demographics": [
+        "ehr_export.json#/2"
+      ],
+      "records": [
+        "ehr_export.json#/2/documents/0",
+        "ehr_export.json#/2/labs/0",
+        "ehr_export.json#/2/labs/1",
+        "ehr_export.json#/2/labs/2"
+      ]
+    },
+    {
+      "key": "P04",
+      "given_name": "Angie",
+      "family_name": "Mcclain",
+      "name": "Angie Mcclain",
+      "dob": "1968-09-23",
+      "gender": "unknown",
+      "story": "t2dm",
+      "mrn_variants": [
+        "MRN-004278"
+      ],
+      "mrns_normalized": [
+        "MRN-004278"
+      ],
+      "name_variants": [
+        "Angie Mcclain"
+      ],
+      "demographics": [],
+      "records": [
+        "lab_results.csv#row=6",
+        "lab_results.csv#row=7",
+        "notes/scan_003.txt"
+      ]
+    },
+    {
+      "key": "P05",
+      "given_name": "Amanda",
+      "family_name": "Henderson",
+      "name": "Amanda Henderson",
+      "dob": null,
+      "gender": "female",
+      "story": "copd",
+      "mrn_variants": [
+        "MRN-037048"
+      ],
+      "mrns_normalized": [
+        "MRN-037048"
+      ],
+      "name_variants": [
+        "Amanda Henderson"
+      ],
+      "demographics": [
+        "ehr_export.json#/3"
+      ],
+      "records": [
+        "ehr_export.json#/3/documents/0",
+        "ehr_export.json#/3/imaging/0",
+        "ehr_export.json#/3/labs/0"
+      ]
+    },
+    {
+      "key": "P06",
+      "given_name": "Jonathan",
+      "family_name": "Robinson",
+      "name": "Jonathan Robinson",
+      "dob": "1965-02-03",
+      "gender": "male",
+      "story": "hip",
+      "mrn_variants": [
+        "MRN-033098"
+      ],
+      "mrns_normalized": [
+        "MRN-033098"
+      ],
+      "name_variants": [
+        "Jonathan Robinson"
+      ],
+      "demographics": [
+        "ehr_export.json#/4"
+      ],
+      "records": [
+        "ehr_export.json#/4/documents/0",
+        "ehr_export.json#/4/imaging/0",
+        "lab_results.csv#row=1",
+        "lab_results.csv#row=20"
+      ]
+    },
+    {
+      "key": "P07",
+      "given_name": "Christina",
+      "family_name": "Johnson",
+      "name": "Christina Johnson",
+      "dob": null,
+      "gender": "female",
+      "story": "knee",
+      "mrn_variants": [
+        "  MRN-030256 ",
+        "MRN-030256"
+      ],
+      "mrns_normalized": [
+        "MRN-030256"
+      ],
+      "name_variants": [
+        "  Christina Johnson ",
+        "Christina Johnson"
+      ],
+      "demographics": [
+        "ehr_export.json#/5"
+      ],
+      "records": [
+        "ehr_export.json#/5/imaging/0",
+        "notes/scan_007.txt"
+      ]
+    },
+    {
+      "key": "P08",
+      "given_name": "Joshua",
+      "family_name": "Santos",
+      "name": "Joshua Santos",
+      "dob": "1948-10-25",
+      "gender": "unknown",
+      "story": "headache",
+      "mrn_variants": [
+        "MRN-019289"
+      ],
+      "mrns_normalized": [
+        "MRN-019289"
+      ],
+      "name_variants": [
+        "Joshua Santos"
+      ],
+      "demographics": [
+        "ehr_export.json#/6"
+      ],
+      "records": [
+        "ehr_export.json#/6/imaging/0",
+        "notes/scan_006.txt"
+      ]
+    },
+    {
+      "key": "P09",
+      "given_name": "Rhonda",
+      "family_name": "Lawrence",
+      "name": "Rhonda Lawrence",
+      "dob": "1959-07-28",
+      "gender": "unknown",
+      "story": "wellness",
+      "mrn_variants": [
+        "MRN-097530"
+      ],
+      "mrns_normalized": [
+        "MRN-097530"
+      ],
+      "name_variants": [
+        "Rhonda Lawrence"
+      ],
+      "demographics": [
+        "ehr_export.json#/7"
+      ],
+      "records": [
+        "ehr_export.json#/7/documents/0",
+        "ehr_export.json#/7/imaging/0",
+        "lab_results.csv#row=14",
+        "lab_results.csv#row=15"
+      ]
+    },
+    {
+      "key": "P10",
+      "given_name": "Robert",
+      "family_name": "Smith",
+      "name": "Robert Smith",
+      "dob": "1945-11-01",
+      "gender": "unknown",
+      "story": "pneumonia",
+      "mrn_variants": [
+        "MRN-014434",
+        "MRN14434"
+      ],
+      "mrns_normalized": [
+        "MRN-014434"
+      ],
+      "name_variants": [
+        "Robert Smith"
+      ],
+      "demographics": [
+        "ehr_export.json#/8"
+      ],
+      "records": [
+        "ehr_export.json#/8/documents/0",
+        "ehr_export.json#/8/imaging/0",
+        "lab_results.csv#row=4"
+      ]
+    },
+    {
+      "key": "P11",
+      "given_name": "Gerald",
+      "family_name": "Wolfe",
+      "name": "Gerald Wolfe",
+      "dob": "1975-01-02",
+      "gender": "male",
+      "story": "chf",
+      "mrn_variants": [
+        "89696",
+        "MRN-089696"
+      ],
+      "mrns_normalized": [
+        "MRN-089696"
+      ],
+      "name_variants": [
+        "Gerald Wolfe"
+      ],
+      "demographics": [
+        "ehr_export.json#/9"
+      ],
+      "records": [
+        "ehr_export.json#/9/documents/0",
+        "ehr_export.json#/9/imaging/0",
+        "ehr_export.json#/9/labs/0",
+        "ehr_export.json#/9/labs/1",
+        "ehr_export.json#/9/labs/2",
+        "notes/scan_002.txt"
+      ]
+    },
+    {
+      "key": "P12",
+      "given_name": "Tina",
+      "family_name": "Moore",
+      "name": "Tina Moore",
+      "dob": "1969-07-18",
+      "gender": "female",
+      "story": "copd",
+      "mrn_variants": [
+        "MRN-098080"
+      ],
+      "mrns_normalized": [
+        "MRN-098080"
+      ],
+      "name_variants": [
+        "Tina Moore"
+      ],
+      "demographics": [
+        "ehr_export.json#/10"
+      ],
+      "records": [
+        "ehr_export.json#/10/documents/0",
+        "ehr_export.json#/10/imaging/0",
+        "ehr_export.json#/10/imaging/1",
+        "lab_results.csv#row=5"
+      ]
+    },
+    {
+      "key": "P13",
+      "given_name": "Anna",
+      "family_name": "Rogers",
+      "name": "Anna Rogers",
+      "dob": "1946-01-13",
+      "gender": "female",
+      "story": "dka",
+      "mrn_variants": [
+        "MRN-072482"
+      ],
+      "mrns_normalized": [
+        "MRN-072482"
+      ],
+      "name_variants": [
+        "Anna Rogers"
+      ],
+      "demographics": [
+        "ehr_export.json#/11"
+      ],
+      "records": [
+        "ehr_export.json#/11/documents/0",
+        "ehr_export.json#/11/documents/1",
+        "lab_results.csv#row=11",
+        "lab_results.csv#row=12",
+        "lab_results.csv#row=13"
+      ]
+    },
+    {
+      "key": "P14",
+      "given_name": "Sarah",
+      "family_name": "Davis",
+      "name": "Sarah Davis",
+      "dob": "1979-08-07",
+      "gender": "female",
+      "story": "hip",
+      "mrn_variants": [
+        "MRN-012395"
+      ],
+      "mrns_normalized": [
+        "MRN-012395"
+      ],
+      "name_variants": [
+        "Dr. Sarah Davis Jr."
+      ],
+      "demographics": [
+        "ehr_export.json#/12"
+      ],
+      "records": [
+        "ehr_export.json#/12/documents/0",
+        "ehr_export.json#/12/imaging/0",
+        "ehr_export.json#/12/labs/0"
+      ]
+    },
+    {
+      "key": "P15",
+      "given_name": "Robert",
+      "family_name": "Munoz",
+      "name": "Robert Munoz",
+      "dob": "1955-01-01",
+      "gender": "male",
+      "story": "t2dm",
+      "mrn_variants": [
+        "MRN-078397"
+      ],
+      "mrns_normalized": [
+        "MRN-078397"
+      ],
+      "name_variants": [
+        "Robert Munoz",
+        "robert  munoz"
+      ],
+      "demographics": [
+        "ehr_export.json#/13"
+      ],
+      "records": [
+        "lab_results.csv#row=8",
+        "lab_results.csv#row=9",
+        "notes/scan_004.txt"
+      ]
+    },
+    {
+      "key": "P16",
+      "given_name": "Joshua",
+      "family_name": "Blair",
+      "name": "Joshua Blair",
+      "dob": "1941-09-29",
+      "gender": "male",
+      "story": "knee",
+      "mrn_variants": [
+        "MRN-056302"
+      ],
+      "mrns_normalized": [
+        "MRN-056302"
+      ],
+      "name_variants": [
+        "Joshua Blair",
+        "Joshua\u00a0Blair"
+      ],
+      "demographics": [
+        "ehr_export.json#/14"
+      ],
+      "records": [
+        "ehr_export.json#/14/imaging/0",
+        "notes/scan_008.txt"
+      ]
+    },
+    {
+      "key": "P17",
+      "given_name": "Jamie",
+      "family_name": "Dudley",
+      "name": "Jamie Dudley",
+      "dob": "1999-07-03",
+      "gender": "female",
+      "story": "wellness",
+      "mrn_variants": [
+        "MRN-005165"
+      ],
+      "mrns_normalized": [
+        "MRN-005165"
+      ],
+      "name_variants": [
+        "Jamie Dudley"
+      ],
+      "demographics": [
+        "ehr_export.json#/15"
+      ],
+      "records": [
+        "ehr_export.json#/15/imaging/0",
+        "lab_results.csv#row=19",
+        "lab_results.csv#row=2",
+        "lab_results.csv#row=3",
+        "notes/scan_001.txt"
+      ]
+    },
+    {
+      "key": "P18",
+      "given_name": "Ronald",
+      "family_name": "Arnold",
+      "name": "Ronald Arnold",
+      "dob": "2001-10-10",
+      "gender": "male",
+      "story": "headache",
+      "mrn_variants": [
+        "MRN-004905"
+      ],
+      "mrns_normalized": [
+        "MRN-004905"
+      ],
+      "name_variants": [
+        "Ronald Arnold"
+      ],
+      "demographics": [
+        "ehr_export.json#/16"
+      ],
+      "records": [
+        "ehr_export.json#/16/imaging/0",
+        "notes/scan_005.txt"
+      ]
+    }
+  ],
+  "duplicates": [
+    {
+      "type": "exact",
+      "defect_id": "5",
+      "records": [
+        "lab_results.csv#row=2",
+        "lab_results.csv#row=19"
+      ]
+    },
+    {
+      "type": "near",
+      "defect_id": "6",
+      "records": [
+        "ehr_export.json#/10/imaging/0",
+        "ehr_export.json#/10/imaging/1"
+      ]
+    },
+    {
+      "type": "near",
+      "defect_id": "6",
+      "records": [
+        "ehr_export.json#/11/documents/0",
+        "ehr_export.json#/11/documents/1"
+      ]
+    }
+  ],
+  "mrn_conflict": {
+    "raw_mrn": "MRN-004278",
+    "patients": [
+      "P03",
+      "P04"
+    ],
+    "note": "Different names and DOBs on one MRN; must NOT be merged."
+  },
+  "fhir_failure": "lab_results.csv#row=20",
+  "defects": [
+    {
+      "n": 1,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "dob written as MM/DD/YYYY: \"03/02/1999\"",
+      "location": "ehr_export.json#/2",
+      "patient": "P03",
+      "expected": "dob -> 1999-03-02 (ambiguous; US MM/DD assumed, audit `ambiguous_date_assumed_us`)"
+    },
+    {
+      "n": 2,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "dob written as YYYYMMDD: \"19590728\"",
+      "location": "ehr_export.json#/7",
+      "patient": "P09",
+      "expected": "dob -> 1959-07-28"
+    },
+    {
+      "n": 3,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "dob written as Month D, YYYY: \"November 1, 1945\"",
+      "location": "ehr_export.json#/8",
+      "patient": "P10",
+      "expected": "dob -> 1945-11-01"
+    },
+    {
+      "n": 4,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "dob written as D-Mon-YY: \"10-Oct-01\"",
+      "location": "ehr_export.json#/16",
+      "patient": "P18",
+      "expected": "dob -> 2001-10-10"
+    },
+    {
+      "n": 5,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "dob written as MM/DD/YYYY: \"11/01/1945\"",
+      "location": "lab_results.csv#row=4",
+      "patient": "P10",
+      "expected": "dob -> 1945-11-01 (ambiguous; US MM/DD assumed, audit `ambiguous_date_assumed_us`)"
+    },
+    {
+      "n": 6,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "collected_at written as MM/DD/YYYY HH:MM: \"01/13/2025 07:25\"",
+      "location": "lab_results.csv#row=11",
+      "patient": "P13",
+      "expected": "collected_at -> 2025-01-13"
+    },
+    {
+      "n": 7,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "collected_at written as D-Mon-YY HH:MM: \"27-May-25 10:45\"",
+      "location": "lab_results.csv#row=14",
+      "patient": "P09",
+      "expected": "collected_at -> 2025-05-27"
+    },
+    {
+      "n": 8,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "collectedAt written as YYYYMMDD with no time: \"20231120\"",
+      "location": "ehr_export.json#/9/labs/0",
+      "patient": "P11",
+      "expected": "collectedAt -> 2023-11-20"
+    },
+    {
+      "n": 9,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DOB written as MM/DD/YYYY: \"07/03/1999\"",
+      "location": "notes/scan_001.txt",
+      "patient": "P17",
+      "expected": "dob -> 1999-07-03 (ambiguous; US MM/DD assumed, audit `ambiguous_date_assumed_us`)"
+    },
+    {
+      "n": 10,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as Month D, YYYY: \"May 5, 2023\"",
+      "location": "notes/scan_001.txt",
+      "patient": "P17",
+      "expected": "date -> 2023-05-05"
+    },
+    {
+      "n": 11,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as MM/DD/YYYY: \"12/03/2023\"",
+      "location": "notes/scan_002.txt",
+      "patient": "P11",
+      "expected": "date -> 2023-12-03 (ambiguous; US MM/DD assumed, audit `ambiguous_date_assumed_us`)"
+    },
+    {
+      "n": 12,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DOB written as Month D, YYYY: \"September 23, 1968\"",
+      "location": "notes/scan_003.txt",
+      "patient": "P04",
+      "expected": "dob -> 1968-09-23"
+    },
+    {
+      "n": 13,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DOB written as MM/DD/YYYY: \"01/01/1955\"",
+      "location": "notes/scan_004.txt",
+      "patient": "P15",
+      "expected": "dob -> 1955-01-01"
+    },
+    {
+      "n": 14,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as D-Mon-YY: \"21-Feb-24\"",
+      "location": "notes/scan_004.txt",
+      "patient": "P15",
+      "expected": "date -> 2024-02-21"
+    },
+    {
+      "n": 15,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DOB written as YYYYMMDD: \"20011010\"",
+      "location": "notes/scan_005.txt",
+      "patient": "P18",
+      "expected": "dob -> 2001-10-10"
+    },
+    {
+      "n": 16,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as MM/DD/YYYY: \"03/22/2024\"",
+      "location": "notes/scan_005.txt",
+      "patient": "P18",
+      "expected": "date -> 2024-03-22"
+    },
+    {
+      "n": 17,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as Month D, YYYY: \"July 6, 2024\"",
+      "location": "notes/scan_006.txt",
+      "patient": "P08",
+      "expected": "date -> 2024-07-06"
+    },
+    {
+      "n": 18,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DOB written as MM/DD/YYYY: \"09/29/1941\"",
+      "location": "notes/scan_008.txt",
+      "patient": "P16",
+      "expected": "dob -> 1941-09-29"
+    },
+    {
+      "n": 19,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as D-Mon-YY: \"3-Dec-24\"",
+      "location": "notes/scan_008.txt",
+      "patient": "P16",
+      "expected": "date -> 2024-12-03"
+    },
+    {
+      "n": 20,
+      "id": "1",
+      "defect": "Mixed date formats",
+      "detail": "header DATE written as MM/DD/YYYY: \"12/05/2024\"",
+      "location": "notes/scan_009.txt",
+      "patient": "P02",
+      "expected": "date -> 2024-12-05 (ambiguous; US MM/DD assumed, audit `ambiguous_date_assumed_us`)"
+    },
+    {
+      "n": 21,
+      "id": "2",
+      "defect": "Impossible date",
+      "detail": "dob is in the future: \"2030-12-17\"",
+      "location": "ehr_export.json#/3",
+      "patient": "P05",
+      "expected": "dob -> null, audit `dob_in_future`; patient kept"
+    },
+    {
+      "n": 22,
+      "id": "2",
+      "defect": "Impossible date",
+      "detail": "imaging date \"1958-03-03T18:40:00\" is before the patient's DOB 1965-02-03",
+      "location": "ehr_export.json#/4/imaging/0",
+      "patient": "P06",
+      "expected": "record kept, date -> null, audit `date_before_dob`"
+    },
+    {
+      "n": 23,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"M\"",
+      "location": "ehr_export.json#/0",
+      "patient": "P01",
+      "expected": "gender -> `male`"
+    },
+    {
+      "n": 24,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"F\"",
+      "location": "ehr_export.json#/1",
+      "patient": "P02",
+      "expected": "gender -> `female`"
+    },
+    {
+      "n": 25,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"Female\"",
+      "location": "ehr_export.json#/3",
+      "patient": "P05",
+      "expected": "gender -> `female`"
+    },
+    {
+      "n": 26,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"1\" (1=male, 2=female, ISO/IEC 5218)",
+      "location": "ehr_export.json#/4",
+      "patient": "P06",
+      "expected": "gender -> `male`"
+    },
+    {
+      "n": 27,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"2\" (1=male, 2=female, ISO/IEC 5218)",
+      "location": "ehr_export.json#/5",
+      "patient": "P07",
+      "expected": "gender -> `female`"
+    },
+    {
+      "n": 28,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"U\"",
+      "location": "ehr_export.json#/7",
+      "patient": "P09",
+      "expected": "gender -> `unknown`"
+    },
+    {
+      "n": 29,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"\"",
+      "location": "ehr_export.json#/8",
+      "patient": "P10",
+      "expected": "gender -> `unknown`"
+    },
+    {
+      "n": 30,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"M\"",
+      "location": "ehr_export.json#/13",
+      "patient": "P15",
+      "expected": "gender -> `male`"
+    },
+    {
+      "n": 31,
+      "id": "3",
+      "defect": "Gender variant",
+      "detail": "gender written as \"Male\"",
+      "location": "ehr_export.json#/14",
+      "patient": "P16",
+      "expected": "gender -> `male`"
+    },
+    {
+      "n": 32,
+      "id": "4",
+      "defect": "MRN variant",
+      "detail": "MRN padded with spaces, no prefix",
+      "location": "lab_results.csv#row=10",
+      "patient": "P02",
+      "expected": "mrn -> MRN-015592"
+    },
+    {
+      "n": 33,
+      "id": "4",
+      "defect": "MRN variant",
+      "detail": "MRN lower-case prefix",
+      "location": "notes/scan_009.txt",
+      "patient": "P02",
+      "expected": "mrn -> MRN-015592"
+    },
+    {
+      "n": 34,
+      "id": "4",
+      "defect": "MRN variant",
+      "detail": "MRN not zero-padded",
+      "location": "ehr_export.json#/8",
+      "patient": "P10",
+      "expected": "mrn -> MRN-014434"
+    },
+    {
+      "n": 35,
+      "id": "4",
+      "defect": "MRN variant",
+      "detail": "MRN not zero-padded",
+      "location": "ehr_export.json#/9",
+      "patient": "P11",
+      "expected": "mrn -> MRN-089696"
+    },
+    {
+      "n": 36,
+      "id": "5",
+      "defect": "Exact duplicate",
+      "detail": "lab row re-sent at the end of the file, identical in every column",
+      "location": "lab_results.csv#row=19",
+      "patient": "P17",
+      "expected": "one copy dropped, audit `duplicate_dropped`"
+    },
+    {
+      "n": 37,
+      "id": "6",
+      "defect": "Near duplicate",
+      "detail": "imaging report re-exported with doubled spaces and trailing whitespace; same date and patient",
+      "location": "ehr_export.json#/10/imaging/1",
+      "patient": "P12",
+      "expected": "dropped as near-duplicate (whitespace-collapsed, case-folded text match), audit `duplicate_dropped`"
+    },
+    {
+      "n": 38,
+      "id": "6",
+      "defect": "Near duplicate",
+      "detail": "discharge summary re-exported in upper case with a new id; same date and patient",
+      "location": "ehr_export.json#/11/documents/1",
+      "patient": "P13",
+      "expected": "dropped as near-duplicate (whitespace-collapsed, case-folded text match), audit `duplicate_dropped`"
+    },
+    {
+      "n": 39,
+      "id": "7",
+      "defect": "Same patient, two MRNs",
+      "detail": "nickname and a second MRN; JSON has \"William Fowler\" MRN-084810, same DOB",
+      "location": "lab_results.csv#row=16",
+      "patient": "P01",
+      "expected": "merged into one patient with source_ids [MRN-084810, MRN-013280]"
+    },
+    {
+      "n": 40,
+      "id": "7",
+      "defect": "Same patient, two MRNs",
+      "detail": "nickname and a second MRN; JSON has \"William Fowler\" MRN-084810, same DOB",
+      "location": "lab_results.csv#row=17",
+      "patient": "P01",
+      "expected": "merged into one patient with source_ids [MRN-084810, MRN-013280]"
+    },
+    {
+      "n": 41,
+      "id": "7",
+      "defect": "Same patient, two MRNs",
+      "detail": "nickname and a second MRN; JSON has \"William Fowler\" MRN-084810, same DOB",
+      "location": "lab_results.csv#row=18",
+      "patient": "P01",
+      "expected": "merged into one patient with source_ids [MRN-084810, MRN-013280]"
+    },
+    {
+      "n": 42,
+      "id": "8",
+      "defect": "Same MRN, two different people",
+      "detail": "MRN \"MRN-004278\" also belongs to \"Michael Doyle\" in JSON (different name and DOB)",
+      "location": "lab_results.csv#row=6",
+      "patient": "P04",
+      "expected": "NOT merged: two patients; audit `mrn_conflict`"
+    },
+    {
+      "n": 43,
+      "id": "8",
+      "defect": "Same MRN, two different people",
+      "detail": "MRN \"MRN-004278\" also belongs to \"Michael Doyle\" in JSON (different name and DOB)",
+      "location": "lab_results.csv#row=7",
+      "patient": "P04",
+      "expected": "NOT merged: two patients; audit `mrn_conflict`"
+    },
+    {
+      "n": 44,
+      "id": "8",
+      "defect": "Same MRN, two different people",
+      "detail": "MRN \"MRN-004278\" also belongs to \"Michael Doyle\" in JSON (different name and DOB)",
+      "location": "notes/scan_003.txt",
+      "patient": "P04",
+      "expected": "NOT merged: two patients; audit `mrn_conflict`"
+    },
+    {
+      "n": 45,
+      "id": "9",
+      "defect": "Missing field",
+      "detail": "dob field absent",
+      "location": "ehr_export.json#/5",
+      "patient": "P07",
+      "expected": "dob -> null"
+    },
+    {
+      "n": 46,
+      "id": "9",
+      "defect": "Missing field",
+      "detail": "DOB header line absent",
+      "location": "notes/scan_007.txt",
+      "patient": "P07",
+      "expected": "dob stays null (no other source)"
+    },
+    {
+      "n": 47,
+      "id": "9",
+      "defect": "Missing field",
+      "detail": "document has no date field",
+      "location": "ehr_export.json#/7/documents/0",
+      "patient": "P09",
+      "expected": "record kept, date -> null"
+    },
+    {
+      "n": 48,
+      "id": "9",
+      "defect": "Missing field",
+      "detail": "flag blank on a normal result",
+      "location": "lab_results.csv#row=3",
+      "patient": "P17",
+      "expected": "flag -> null (or `N` from ref range)"
+    },
+    {
+      "n": 49,
+      "id": "9",
+      "defect": "Missing field",
+      "detail": "gender field absent",
+      "location": "ehr_export.json#/6",
+      "patient": "P08",
+      "expected": "gender -> `unknown`"
+    },
+    {
+      "n": 50,
+      "id": "10",
+      "defect": "Name noise",
+      "detail": "name as FAMILY, GIVEN in capitals",
+      "location": "lab_results.csv#row=10",
+      "patient": "P02",
+      "expected": "given `Courtney`, family `Hill`"
+    },
+    {
+      "n": 51,
+      "id": "10",
+      "defect": "Name noise",
+      "detail": "name with title and suffix: \"Dr. Sarah Davis Jr.\"",
+      "location": "ehr_export.json#/12",
+      "patient": "P14",
+      "expected": "given `Sarah`, family `Davis`"
+    },
+    {
+      "n": 52,
+      "id": "10",
+      "defect": "Name noise",
+      "detail": "name with lower case with a double space: \"robert  munoz\"",
+      "location": "ehr_export.json#/13",
+      "patient": "P15",
+      "expected": "given `Robert`, family `Munoz`"
+    },
+    {
+      "n": 53,
+      "id": "11",
+      "defect": "Encoding/whitespace",
+      "detail": "non-breaking space (U+00A0) inside name",
+      "location": "ehr_export.json#/14",
+      "patient": "P16",
+      "expected": "given `Joshua`, family `Blair`"
+    },
+    {
+      "n": 54,
+      "id": "11",
+      "defect": "Encoding/whitespace",
+      "detail": "non-breaking space (U+00A0) inside header name",
+      "location": "notes/scan_009.txt",
+      "patient": "P02",
+      "expected": "given `Courtney`, family `Hill`"
+    },
+    {
+      "n": 55,
+      "id": "11",
+      "defect": "Encoding/whitespace",
+      "detail": "stray tabs in test and value",
+      "location": "lab_results.csv#row=9",
+      "patient": "P15",
+      "expected": "test -> `HbA1c`, value parsed"
+    },
+    {
+      "n": 56,
+      "id": "11",
+      "defect": "Encoding/whitespace",
+      "detail": "whole file uses CRLF line endings",
+      "location": "notes/scan_001.txt",
+      "patient": "P17",
+      "expected": "parsed like LF files"
+    },
+    {
+      "n": 57,
+      "id": "11",
+      "defect": "Encoding/whitespace",
+      "detail": "OCR spacing: space before colons, padded header values, doubled spaces in text",
+      "location": "notes/scan_007.txt",
+      "patient": "P07",
+      "expected": "header fields parsed and stripped"
+    },
+    {
+      "n": 58,
+      "id": "12",
+      "defect": "Cross-source patient",
+      "detail": "same patient in JSON, CSV and a TXT note with different MRN and name spellings",
+      "location": "ehr_export.json#/1",
+      "patient": "P02",
+      "expected": "all three linked to one canonical patient"
+    },
+    {
+      "n": 59,
+      "id": "12",
+      "defect": "Cross-source patient",
+      "detail": "same patient in JSON, CSV and a TXT note with different MRN and name spellings",
+      "location": "lab_results.csv#row=10",
+      "patient": "P02",
+      "expected": "all three linked to one canonical patient"
+    },
+    {
+      "n": 60,
+      "id": "12",
+      "defect": "Cross-source patient",
+      "detail": "same patient in JSON, CSV and a TXT note with different MRN and name spellings",
+      "location": "notes/scan_009.txt",
+      "patient": "P02",
+      "expected": "all three linked to one canonical patient"
+    },
+    {
+      "n": 61,
+      "id": "FHIR",
+      "defect": "Seeded FHIR failure",
+      "detail": "lab row with empty test name and no value",
+      "location": "lab_results.csv#row=20",
+      "patient": "P06",
+      "expected": "ingested, then fails FHIR Observation validation (no code, no value) and lands in the validation report"
+    }
+  ]
+}
