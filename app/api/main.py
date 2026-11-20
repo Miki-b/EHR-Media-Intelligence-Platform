@@ -62,6 +62,7 @@ def health(service: Service) -> dict:
         "status": "ok",
         "llm_provider": s.llm_provider,
         "embed_model": s.embed_model,
+        "fixture_mode": s.fixture_mode,
         "indexed_chunks": service.size,
         "patients": len(service.patients),
     }

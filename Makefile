@@ -1,7 +1,7 @@
 PY ?= python
 .DEFAULT_GOAL := help
 
-.PHONY: help install data fixtures ingest fhir summarize index pipeline serve api ui test lint format eval demo clean
+.PHONY: help install data fixtures fixtures-serve ingest fhir summarize index pipeline serve api ui test lint format eval demo clean
 
 help: ## Show available commands
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-11s %s\n", $$1, $$2}'
@@ -13,8 +13,12 @@ install: ## Install Python (with dev extras) and frontend dependencies
 data: ## Generate synthetic raw EHR files (fixed seed)
 	$(PY) scripts/generate_data.py
 
-fixtures: ## Load committed fixture bundles and summaries into SQLite (until the pipeline lands)
+fixtures: ## Load and index the committed fixture patients (own DB: data/fixtures.db)
 	$(PY) scripts/load_fixtures.py
+	FIXTURE_MODE=1 $(PY) -m app.pipeline index
+
+fixtures-serve: fixtures ## Run API and UI over the fixture data instead of pipeline output
+	FIXTURE_MODE=1 $(MAKE) serve
 
 ingest: ## Task 1: raw files -> canonical models + audit log
 	$(PY) -m app.pipeline ingest
@@ -59,5 +63,5 @@ demo: ## Full pipeline with the mock LLM, then serve
 	$(MAKE) serve
 
 clean: ## Delete generated data (keeps committed fixtures and cache)
-	rm -rf data/ehr.db data/chroma data/rejected.jsonl reports/*.md
+	rm -rf data/ehr.db data/chroma data/fixtures.db data/chroma-fixtures data/rejected.jsonl reports/*.md
 	rm -f data/raw/*.json data/raw/*.csv data/raw/notes/*.txt

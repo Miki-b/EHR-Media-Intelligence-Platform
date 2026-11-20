@@ -84,3 +84,24 @@ def test_loader_fills_patients_bundles_and_summaries(tmp_path):
     assert row[2] == "male"
     assert row[3] == row[4], "summary must be keyed by the bundle it was generated from"
     assert row[3] == content_hash(read(FIXTURES / "bundles" / "p-0001.json"))
+
+
+def test_fixture_mode_uses_its_own_paths(monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.delenv("DB_PATH")
+    monkeypatch.delenv("CHROMA_PATH")
+    monkeypatch.setenv("FIXTURE_MODE", "1")
+    get_settings.cache_clear()
+    s = get_settings()
+    assert s.db_path.name == "fixtures.db"
+    assert s.chroma_path.name == "chroma-fixtures"
+
+    monkeypatch.setenv("DB_PATH", "elsewhere.db")
+    get_settings.cache_clear()
+    assert get_settings().db_path == Path("elsewhere.db"), "explicit DB_PATH wins"
+
+    monkeypatch.setenv("FIXTURE_MODE", "0")
+    monkeypatch.delenv("DB_PATH")
+    get_settings.cache_clear()
+    assert get_settings().db_path.name == "ehr.db"
