@@ -1,0 +1,36 @@
+{
+  "patient_id": "p-0002",
+  "chief_concern": "Follow-up for type 2 diabetes with high home glucose readings.",
+  "key_diagnoses": [
+    "Type 2 diabetes mellitus, poorly controlled",
+    "Early peripheral neuropathy"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef",
+      "type": "lab",
+      "date": "2025-03-14",
+      "note": "HbA1c 9.8%, fasting glucose 212 mg/dL, both high."
+    },
+    {
+      "resource_id": "DocumentReference/91c6fad4-b28f-5a7d-9121-82d1c641fe92",
+      "type": "note",
+      "date": "2025-03-14",
+      "note": "Missed metformin doses; semaglutide added."
+    }
+  ],
+  "anomalies": [
+    "HbA1c 9.8% (reference 4.0-5.6%)",
+    "Fasting glucose 212 mg/dL"
+  ],
+  "citations": [
+    "DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef",
+    "DocumentReference/91c6fad4-b28f-5a7d-9121-82d1c641fe92"
+  ],
+  "word_count": 40,
+  "confidence": "high",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}

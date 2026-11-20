@@ -1,0 +1,38 @@
+{
+  "patient_id": "p-0006",
+  "chief_concern": "Referred for declining kidney function with uncontrolled hypertension.",
+  "key_diagnoses": [
+    "Chronic kidney disease stage 3b",
+    "Hypertension",
+    "Prediabetes"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/3279c004-8694-5864-bef5-b12c4c534cfe",
+      "type": "lab",
+      "date": "2023-09-12",
+      "note": "Creatinine 1.9, eGFR 31, HbA1c 6.1%, albuminuria 180 mg/g."
+    },
+    {
+      "resource_id": "DocumentReference/6c7b1fc4-976f-52d3-9820-f558c417ff79",
+      "type": "note",
+      "date": "2023-09-12",
+      "note": "Losartan and dapagliflozin started; BP target under 130/80."
+    }
+  ],
+  "anomalies": [
+    "eGFR 31 mL/min/1.73m2 (reference 60-120)",
+    "Creatinine 1.9 mg/dL",
+    "Urine albumin/creatinine ratio 180 mg/g"
+  ],
+  "citations": [
+    "DiagnosticReport/3279c004-8694-5864-bef5-b12c4c534cfe",
+    "DocumentReference/6c7b1fc4-976f-52d3-9820-f558c417ff79"
+  ],
+  "word_count": 45,
+  "confidence": "high",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}

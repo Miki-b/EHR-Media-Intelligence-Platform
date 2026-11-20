@@ -1,0 +1,339 @@
+{
+  "resourceType": "Bundle",
+  "id": "b46ddff3-e88d-567d-bbf1-a08518e4f784",
+  "type": "collection",
+  "timestamp": "2025-10-01T00:00:00Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "f3a49ae8-8fc6-5179-9743-c056599e2464",
+        "identifier": [
+          {
+            "system": "urn:ehr-media-intel:mrn",
+            "value": "MRN-000106"
+          }
+        ],
+        "name": [
+          {
+            "family": "Bekele",
+            "given": [
+              "Marta"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1970-03-17"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:da44d088-29a4-5ccb-95a5-13b4ec2c29c5",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "da44d088-29a4-5ccb-95a5-13b4ec2c29c5",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "period": {
+          "start": "2023-09-12",
+          "end": "2023-09-12"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bd0cb9a4-8ce7-5960-844a-c51cf00a6c63",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bd0cb9a4-8ce7-5960-844a-c51cf00a6c63",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Creatinine [Mass/volume] in Serum or Plasma"
+            }
+          ],
+          "text": "Creatinine [Mass/volume] in Serum or Plasma"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "effectiveDateTime": "2023-09-12",
+        "valueQuantity": {
+          "value": 1.9,
+          "unit": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/dL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ],
+            "text": "High"
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0.6,
+              "unit": "mg/dL"
+            },
+            "high": {
+              "value": 1.1,
+              "unit": "mg/dL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b90b0714-ef2b-5865-9289-db3eb6a8edeb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b90b0714-ef2b-5865-9289-db3eb6a8edeb",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "GFR/1.73 sq M.predicted by CKD-EPI"
+            }
+          ],
+          "text": "GFR/1.73 sq M.predicted by CKD-EPI"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "effectiveDateTime": "2023-09-12",
+        "valueQuantity": {
+          "value": 31,
+          "unit": "mL/min/{1.73_m2}",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/{1.73_m2}"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "L",
+                "display": "Low"
+              }
+            ],
+            "text": "Low"
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60,
+              "unit": "mL/min/{1.73_m2}"
+            },
+            "high": {
+              "value": 120,
+              "unit": "mL/min/{1.73_m2}"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b872610f-d41d-567b-b9fb-4de749782d96",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b872610f-d41d-567b-b9fb-4de749782d96",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "4548-4",
+              "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
+            }
+          ],
+          "text": "Hemoglobin A1c/Hemoglobin.total in Blood"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "effectiveDateTime": "2023-09-12",
+        "valueQuantity": {
+          "value": 6.1,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ],
+            "text": "High"
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.0,
+              "unit": "%"
+            },
+            "high": {
+              "value": 5.6,
+              "unit": "%"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3279c004-8694-5864-bef5-b12c4c534cfe",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "3279c004-8694-5864-bef5-b12c4c534cfe",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24362-6",
+              "display": "Renal function panel"
+            }
+          ],
+          "text": "Renal function panel"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "encounter": {
+          "reference": "urn:uuid:da44d088-29a4-5ccb-95a5-13b4ec2c29c5"
+        },
+        "effectiveDateTime": "2023-09-12",
+        "issued": "2023-09-12T16:00:00Z",
+        "result": [
+          {
+            "reference": "urn:uuid:bd0cb9a4-8ce7-5960-844a-c51cf00a6c63"
+          },
+          {
+            "reference": "urn:uuid:b90b0714-ef2b-5865-9289-db3eb6a8edeb"
+          },
+          {
+            "reference": "urn:uuid:b872610f-d41d-567b-b9fb-4de749782d96"
+          }
+        ],
+        "conclusion": "Creatinine 1.9 mg/dL and eGFR 31 indicate stage 3b chronic kidney disease. HbA1c 6.1% in the prediabetic range.",
+        "presentedForm": [
+          {
+            "contentType": "text/plain",
+            "data": "Q3JlYXRpbmluZSAxLjkgbWcvZEwgKHJlZmVyZW5jZSAwLjYtMS4xKSwgSElHSC4gZUdGUiAzMSBtTC9taW4vMS43M20yLCBMT1csIENLRCBzdGFnZSAzYi4gUG90YXNzaXVtIDQuOSBub3JtYWwuIEhiQTFjIDYuMSUgKHJlZmVyZW5jZSA0LjAtNS42KSwgbWlsZGx5IGVsZXZhdGVkLCBwcmVkaWFiZXRlcyByYW5nZS4gVXJpbmUgYWxidW1pbi9jcmVhdGluaW5lIHJhdGlvIDE4MCBtZy9nLCBtb2RlcmF0ZWx5IGluY3JlYXNlZC4=",
+            "title": "Renal function panel"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c7b1fc4-976f-52d3-9820-f558c417ff79",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "6c7b1fc4-976f-52d3-9820-f558c417ff79",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11506-3",
+              "display": "Progress note"
+            }
+          ],
+          "text": "Progress note"
+        },
+        "subject": {
+          "reference": "urn:uuid:f3a49ae8-8fc6-5179-9743-c056599e2464"
+        },
+        "date": "2023-09-12T12:00:00Z",
+        "description": "Nephrology note: CKD stage 3b and hypertension",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "TkVQSFJPTE9HWSBOT1RFLiA1My15ZWFyLW9sZCB3b21hbiB3aXRoIGxvbmctc3RhbmRpbmcgaHlwZXJ0ZW5zaW9uIHJlZmVycmVkIGZvciBkZWNsaW5pbmcga2lkbmV5IGZ1bmN0aW9uLiBCUCAxNTIvOTQgb24gYW1sb2RpcGluZS4gQ3JlYXRpbmluZSAxLjksIGVHRlIgMzEsIGFsYnVtaW51cmlhIDE4MCBtZy9nLiBIYkExYyA2LjElIGNvbnNpc3RlbnQgd2l0aCBwcmVkaWFiZXRlcy4gRGlhZ25vc2lzOiBDS0Qgc3RhZ2UgM2IsIGxpa2VseSBoeXBlcnRlbnNpdmUgbmVwaHJvc2NsZXJvc2lzLiBQbGFuOiBzdGFydCBsb3NhcnRhbiwgdGFyZ2V0IEJQIHVuZGVyIDEzMC84MCwgYWRkIGRhcGFnbGlmbG96aW4gZm9yIGtpZG5leSBwcm90ZWN0aW9uLCBhdm9pZCBOU0FJRHMsIGRpZXRhcnkgc29kaXVtIHJlc3RyaWN0aW9uLCByZXBlYXQgbGFicyBpbiAzIG1vbnRocywgcmVuYWwgdWx0cmFzb3VuZC4=",
+              "title": "Nephrology note: CKD stage 3b and hypertension"
+            }
+          }
+        ],
+        "context": {
+          "encounter": [
+            {
+              "reference": "urn:uuid:da44d088-29a4-5ccb-95a5-13b4ec2c29c5"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
