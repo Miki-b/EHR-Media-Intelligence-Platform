@@ -1,0 +1,251 @@
+{
+  "resourceType": "Bundle",
+  "id": "c1bc04ea-2374-5dfc-9758-943b6de2a6c8",
+  "type": "collection",
+  "timestamp": "2025-10-01T00:00:00Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "b4621a73-3943-5772-b2f1-73bbdb12c703",
+        "identifier": [
+          {
+            "system": "urn:ehr-media-intel:mrn",
+            "value": "MRN-000101"
+          }
+        ],
+        "name": [
+          {
+            "family": "Kebede",
+            "given": [
+              "Abebe"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1961-05-14"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:872272d8-5efe-56d6-a3de-dd6a79cbb9d0",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "872272d8-5efe-56d6-a3de-dd6a79cbb9d0",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
+        },
+        "subject": {
+          "reference": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703"
+        },
+        "period": {
+          "start": "2025-02-03",
+          "end": "2025-02-09"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:db0b9197-cbfb-51ee-ad00-f5bb058e74f6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "db0b9197-cbfb-51ee-ad00-f5bb058e74f6",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30934-4",
+              "display": "Natriuretic peptide B [Mass/volume] in Blood"
+            }
+          ],
+          "text": "Natriuretic peptide B [Mass/volume] in Blood"
+        },
+        "subject": {
+          "reference": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703"
+        },
+        "effectiveDateTime": "2025-02-03",
+        "valueQuantity": {
+          "value": 1480,
+          "unit": "pg/mL",
+          "system": "http://unitsofmeasure.org",
+          "code": "pg/mL"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "H",
+                "display": "High"
+              }
+            ],
+            "text": "High"
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0,
+              "unit": "pg/mL"
+            },
+            "high": {
+              "value": 100,
+              "unit": "pg/mL"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:823759b5-342e-5e0d-b34d-27272aeac43c",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "823759b5-342e-5e0d-b34d-27272aeac43c",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "LAB",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "30934-4",
+              "display": "BNP panel"
+            }
+          ],
+          "text": "BNP panel"
+        },
+        "subject": {
+          "reference": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703"
+        },
+        "encounter": {
+          "reference": "urn:uuid:872272d8-5efe-56d6-a3de-dd6a79cbb9d0"
+        },
+        "effectiveDateTime": "2025-02-03",
+        "issued": "2025-02-03T16:00:00Z",
+        "result": [
+          {
+            "reference": "urn:uuid:db0b9197-cbfb-51ee-ad00-f5bb058e74f6"
+          }
+        ],
+        "conclusion": "BNP markedly elevated at 1480 pg/mL, consistent with decompensated heart failure.",
+        "presentedForm": [
+          {
+            "contentType": "text/plain",
+            "data": "Qi10eXBlIG5hdHJpdXJldGljIHBlcHRpZGUgMTQ4MCBwZy9tTCAocmVmZXJlbmNlIDAtMTAwKS4gTWFya2VkbHkgZWxldmF0ZWQuIENvcnJlbGF0ZSB3aXRoIGNsaW5pY2FsIHNpZ25zIG9mIHZvbHVtZSBvdmVybG9hZC4=",
+            "title": "BNP panel"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8e1db449-45f4-5b99-a967-c69572eca05d",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "8e1db449-45f4-5b99-a967-c69572eca05d",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                "code": "RAD",
+                "display": "Radiology"
+              }
+            ],
+            "text": "Radiology"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "36643-5",
+              "display": "Chest X-ray 2 views"
+            }
+          ],
+          "text": "Chest X-ray 2 views"
+        },
+        "subject": {
+          "reference": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703"
+        },
+        "encounter": {
+          "reference": "urn:uuid:872272d8-5efe-56d6-a3de-dd6a79cbb9d0"
+        },
+        "effectiveDateTime": "2025-02-03",
+        "issued": "2025-02-03T16:00:00Z",
+        "conclusion": "Abnormal chest x-ray: cardiomegaly with bilateral interstitial edema and small pleural effusions, consistent with congestive heart failure.",
+        "presentedForm": [
+          {
+            "contentType": "text/plain",
+            "data": "Q0hFU1QgWC1SQVksIFBBIEFORCBMQVRFUkFMLiBJbmRpY2F0aW9uOiBzaG9ydG5lc3Mgb2YgYnJlYXRoLCBsZWcgc3dlbGxpbmcuIEZpbmRpbmdzOiBlbmxhcmdlZCBjYXJkaWFjIHNpbGhvdWV0dGUgKGNhcmRpb3Rob3JhY2ljIHJhdGlvIDAuNjIpLiBCaWxhdGVyYWwgaW50ZXJzdGl0aWFsIG1hcmtpbmdzIGFuZCBLZXJsZXkgQiBsaW5lcyBjb25zaXN0ZW50IHdpdGggcHVsbW9uYXJ5IGVkZW1hLiBTbWFsbCBiaWxhdGVyYWwgcGxldXJhbCBlZmZ1c2lvbnMuIE5vIGNvbnNvbGlkYXRpb24gb3IgcG5ldW1vdGhvcmF4LiBJbXByZXNzaW9uOiBjYXJkaW9tZWdhbHkgd2l0aCBwdWxtb25hcnkgdmFzY3VsYXIgY29uZ2VzdGlvbiBhbmQgZWRlbWEsIGNvbnNpc3RlbnQgd2l0aCBDSEYu",
+            "title": "Chest X-ray 2 views"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8db61b99-6a63-5db6-a671-78fd7ac62eac",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "8db61b99-6a63-5db6-a671-78fd7ac62eac",
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "18842-5",
+              "display": "Discharge summary"
+            }
+          ],
+          "text": "Discharge summary"
+        },
+        "subject": {
+          "reference": "urn:uuid:b4621a73-3943-5772-b2f1-73bbdb12c703"
+        },
+        "date": "2025-02-09T12:00:00Z",
+        "description": "Discharge summary: acute decompensated heart failure",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "RElTQ0hBUkdFIFNVTU1BUlkuIEFkbWl0dGVkIDIwMjUtMDItMDMgd2l0aCB0aHJlZSBkYXlzIG9mIHdvcnNlbmluZyBkeXNwbmVhLCBvcnRob3BuZWEgYW5kIGJpbGF0ZXJhbCBsZWcgc3dlbGxpbmcuIERpYWdub3NpczogYWN1dGUgZGVjb21wZW5zYXRlZCBoZWFydCBmYWlsdXJlIHdpdGggcmVkdWNlZCBlamVjdGlvbiBmcmFjdGlvbiAoSEZyRUYsIEVGIDMwJSBvbiBlY2hvKS4gQk5QIDE0ODAuIENoZXN0IHgtcmF5IHNob3dlZCBwdWxtb25hcnkgZWRlbWEgYW5kIGVmZnVzaW9ucy4gVHJlYXRlZCB3aXRoIElWIGZ1cm9zZW1pZGUgd2l0aCA2IGtnIHdlaWdodCBsb3NzLiBEaXNjaGFyZ2VkIDIwMjUtMDItMDkgb24gZnVyb3NlbWlkZSA0MCBtZyBkYWlseSwgY2FydmVkaWxvbCwgc2FjdWJpdHJpbC92YWxzYXJ0YW4gYW5kIGVtcGFnbGlmbG96aW4uIERhaWx5IHdlaWdodHMsIDIgZyBzb2RpdW0gZGlldCwgY2FyZGlvbG9neSBmb2xsb3ctdXAgaW4gMSB3ZWVrLg==",
+              "title": "Discharge summary: acute decompensated heart failure"
+            }
+          }
+        ],
+        "context": {
+          "encounter": [
+            {
+              "reference": "urn:uuid:872272d8-5efe-56d6-a3de-dd6a79cbb9d0"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
