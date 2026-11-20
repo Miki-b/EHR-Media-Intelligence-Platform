@@ -2,6 +2,36 @@
 
 Shared scratchpad. Add what you look up and what breaks, with the date. Most of the write-up comes from here.
 
+## Task 2 notes (2026-11-21)
+
+`app/fhir/`: `mappers.py` (canonical model -> resource dict), `bundle.py` (validate each
+resource, assemble, validate the bundle), `run.py` (reads `patients`/`records`, writes
+`bundles`, `validation_errors` and `reports/validation.md`).
+
+Concepts used:
+- **R4 resource choice**: narrative documents -> `DocumentReference` (LOINC 18842-5
+  discharge summary, 11506-3 progress note); imaging -> `DiagnosticReport` (v2-0074 `RAD`)
+  with `conclusion` + `presentedForm`; labs -> `Observation` grouped under a `LAB`
+  DiagnosticReport via `result[]`.
+- **Observation details**: `valueQuantity` with UCUM codes (`10^3/uL` is `10*3/uL` in UCUM),
+  `referenceRange.low/high` as Quantities, `interpretation` from v3-ObservationInterpretation
+  (H/L/N).
+- **`DocumentReference.date` is an `instant`**, so it needs a time and zone; other dates
+  (`effectiveDateTime`, `birthDate`) accept date-only values.
+- **Validation granularity**: fhir.resources validates structure (required fields,
+  cardinality, types), not terminology; a bogus LOINC code would still pass.
+
+Decisions: see decisions.md rows 20-24 (row 19 is Dev B's fixtures entry on task-4-search).
+
+Problems hit:
+- The first lab reports repeated each value three times (conclusion, `result[]`,
+  `presentedForm`) in the text search indexes. Dropped `presentedForm` for labs and kept
+  only the abnormal values in the conclusion (decision 21).
+- The `patients` table stores `full_name`, not given/family; Task 1 always makes the family
+  name the last token, so `run.py` splits on the last space.
+- Checked compatibility by running Dev B's real `chunk_bundle` (from task-4-search) over all
+  18 bundles: 48 chunks, one per DocumentReference/DiagnosticReport, no dangling references.
+
 ## Task 1 notes (2026-11-21)
 
 Pipeline: `app/ingest/` runs five pure stages (parse -> normalize -> identity -> dedupe ->
@@ -46,8 +76,11 @@ Problems hit:
 - 2026-11-21 (B) **Embeddings do not understand negation.** For "abnormal chest x-ray" the *normal* CXR ("no acute cardiopulmonary abnormality") ranks third, above the consolidation CXR. All three abnormal films are still in the top 5 (recall 1.0), but it is the clearest limitation of pure dense retrieval on clinical text. Hybrid BM25 helps exact terms (CXR, HbA1c) but not negation.
 - 2026-11-21 (B) **Chroma metadata must be scalar.** Dates go in twice: ISO string for display, `YYYYMMDD` int for `$gte`/`$lte` range filters. Chroma also needs `$and` for more than one clause.
 - 2026-11-21 (B) **Precision@5 has a ceiling.** With 2-3 labelled records per query, P@5 cannot exceed 0.4-0.6. results.md prints the ceiling next to the number; MRR and recall are the better signals at this corpus size.
+<<<<<<< HEAD
 - 2026-11-21 (B) **Headless Chromium on Windows will not render narrower than ~500 px** with `--window-size`, so phone screenshots looked clipped. Driving Edge over the DevTools protocol with `Emulation.setDeviceMetricsOverride` gives a true 390 px viewport; `document.documentElement.scrollWidth === innerWidth` confirmed no horizontal overflow.
 - 2026-11-21 (B) **Summary-chunk snippets read like data** ("document 2025-02-09: Discharged…") because the embedded summary text is a flattened record list. The UI shows them in the summary voice; a friendlier summary_text format is a small follow-up on the search side.
+=======
+>>>>>>> origin/main
 
 ## Ideas for "with more time"
 
