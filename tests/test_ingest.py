@@ -4,6 +4,7 @@ ground_truth.json and DEFECTS.md are read here, as the oracle; the ingestion cod
 reads them.
 """
 
+import csv
 import importlib.util
 import json
 import re
@@ -335,3 +336,35 @@ def test_every_defect_instance_has_evidence(run):
             if a["rule"] in expected and (a["record_id"] == rid or a["patient_id"] == pid)
         ]
         assert matches, f"no audit evidence for defect #{defect['n']} at {defect['location']}"
+
+
+def _records(run) -> list[dict]:
+    return [json.loads(r[0]) for r in _rows(run["db"], "SELECT record_json FROM records")]
+
+
+def test_lab_records_carry_structured_fields(run):
+    labs = [r for r in _records(run) if r["kind"] == "lab" and r["code"]]
+    assert labs
+    for lab in labs:
+        assert lab["value"] and lab["unit"] and lab["ref_range"], lab["record_id"]
+        assert lab["text"].startswith(f"{lab['title']}: {lab['value']} {lab['unit']}")
+        assert f"(ref {lab['ref_range']})" in lab["text"]  # readable text kept for search
+
+
+def test_csv_lab_values_are_cleaned_copies_of_the_raw_cells(run):
+    with open(run["root"] / "raw" / "lab_results.csv", newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    records = {r["record_id"]: r for r in _records(run)}
+    for n, row in enumerate(rows, start=1):
+        record = records.get(record_id(f"lab_results.csv#row={n}"))
+        if record is None:  # dropped as a duplicate
+            continue
+        for field in ("value", "unit", "ref_range"):
+            assert record[field] == (row[field].strip() or None), (n, field)
+
+
+def test_non_lab_records_and_fhir_failure_have_no_lab_fields(run):
+    fhir_id = record_id(run["truth"]["fhir_failure"])
+    for record in _records(run):
+        if record["kind"] != "lab" or record["record_id"] == fhir_id:
+            assert (record["value"], record["unit"], record["ref_range"]) == (None, None, None)

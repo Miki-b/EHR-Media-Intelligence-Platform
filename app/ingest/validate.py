@@ -91,6 +91,9 @@ def build_record(record: NormRecord) -> CanonicalRecord:
         text=record.text,
         code=record.code,
         flag=record.flag,
+        value=record.value,
+        unit=record.unit,
+        ref_range=record.ref_range,
         source_file=record.source_file,
         audit=[a.model_copy(update={"patient_id": pid}) for a in record.audit],
     )

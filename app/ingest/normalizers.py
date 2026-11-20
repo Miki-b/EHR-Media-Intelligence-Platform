@@ -18,8 +18,8 @@ Rules:
   lines and the whole text stripped.
 - Labs: test, value, unit and range are cleaned; a missing LOINC code is inferred from the
   test name; a blank flag is derived from value and reference range when both parse.
-  The contract has no value/unit fields, so the lab facts are also written into `text`
-  as "Test: value unit (ref lo-hi) flag F", which Task 2 can parse.
+  value, unit and ref_range are kept as structured fields; the same facts are also
+  written into `text` as "Test: value unit (ref lo-hi) flag F" for search and display.
 
 Demographics are normalized once per source object (patient_ref) and audited on its first
 record, so a JSON patient with five records does not produce five identical audits.
@@ -305,6 +305,8 @@ class NormRecord:
     flag: str | None = None
     test: str | None = None
     value: str | None = None
+    unit: str | None = None
+    ref_range: str | None = None
     audit: list[AuditEntry] = field(default_factory=list)
     patient_id: str | None = None
 
@@ -347,7 +349,8 @@ def _normalize_lab(raw: RawRecord, ctx: AuditContext) -> tuple[dict, list[AuditE
             audits.append(make_audit(ctx, "code", None, code, rules.LOINC_INFERRED))
     text = lab_text(cleaned["test"], cleaned["value"], cleaned["unit"], cleaned["ref_range"], flag)
     fields = {"title": cleaned["test"], "text": text, "code": code, "flag": flag}
-    return fields | {"test": cleaned["test"], "value": cleaned["value"]}, audits
+    structured = {k: cleaned[k] for k in ("test", "value", "unit", "ref_range")}
+    return fields | structured, audits
 
 
 def normalize_record(
