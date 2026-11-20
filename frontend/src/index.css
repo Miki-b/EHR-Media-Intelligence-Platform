@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f8f7;
+  --color-panel: #ffffff;
+  --color-ink: #17262b;
+  --color-muted: #5a6a6f;
+  --color-faint: #8a979b;
+  --color-line: #d7dedf;
+  --color-line-soft: #e8edee;
+  --color-signal: #0e7c7b;
+  --color-signal-soft: #ddefee;
+  --color-doc: #4458b5;
+  --color-report: #b06a00;
+  --color-summary: #7b4b9b;
+  --color-alert: #b3372b;
+  --color-alert-soft: #f8e6e3;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+  body {
+    min-height: 100dvh;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .progress-line {
+    background: linear-gradient(90deg, transparent, var(--color-signal), transparent);
+    background-size: 40% 100%;
+    animation: slide 1.1s linear infinite;
+  }
+  @keyframes slide {
+    from { background-position: -40% 0; }
+    to { background-position: 140% 0; }
+  }
+}

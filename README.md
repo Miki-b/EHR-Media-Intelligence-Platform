@@ -104,6 +104,25 @@ What gets indexed: one chunk per `DocumentReference` (decoded attachment text) a
 plus one chunk per AI summary (`Summary/<patient_id>`). Long texts are split into overlapping
 180-word windows and collapsed back to one result per resource.
 
+## Clinician UI
+
+`make ui` serves the React + Tailwind interface on <http://localhost:5173>; in dev, Vite forwards
+`/api/*` to FastAPI so no host is hard-coded. The whole search lives in the URL
+(`?q=elevated+HbA1c&resource_type=DiagnosticReport&date_from=2025-01-01&patient=p-0002`), so a
+search or an open patient can be bookmarked and shared.
+
+- Results update as you type (250 ms debounce, stale responses discarded). Each row shows the
+  relevance score as a meter, patient name and MRN, resource type, record date, the matching
+  snippet, and the patient's AI summary snippet.
+- Filters: record type, from and to dates. Invalid ranges are flagged before any request is sent.
+- Opening a row slides in the patient drawer: demographics, the full AI summary (chief concern,
+  diagnoses, recent records, flagged anomalies, confidence, disclaimer) and every linked FHIR
+  resource, with the ones the summary cites marked and the clicked record highlighted.
+- Keyboard: Tab to the search box, arrow down into the list, arrow keys between rows, Enter opens
+  the patient, Esc closes the drawer and returns focus. Focus is trapped inside the drawer; status
+  text is announced through live regions; reduced-motion preferences are respected.
+- Empty, loading, no-match and API-down states each say what to do next.
+
 ## Design decisions
 
 See [`docs/decisions.md`](docs/decisions.md).
