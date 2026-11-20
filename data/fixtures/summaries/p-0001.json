@@ -1,0 +1,43 @@
+{
+  "patient_id": "p-0001",
+  "chief_concern": "Worsening shortness of breath and leg swelling over three days.",
+  "key_diagnoses": [
+    "Acute decompensated heart failure (HFrEF, EF 30%)",
+    "Hypertension"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/8e1db449-45f4-5b99-a967-c69572eca05d",
+      "type": "imaging",
+      "date": "2025-02-03",
+      "note": "Cardiomegaly, pulmonary edema, small bilateral effusions."
+    },
+    {
+      "resource_id": "DiagnosticReport/823759b5-342e-5e0d-b34d-27272aeac43c",
+      "type": "lab",
+      "date": "2025-02-03",
+      "note": "BNP 1480 pg/mL, markedly elevated."
+    },
+    {
+      "resource_id": "DocumentReference/8db61b99-6a63-5db6-a671-78fd7ac62eac",
+      "type": "document",
+      "date": "2025-02-09",
+      "note": "Discharged after diuresis on guideline heart failure therapy."
+    }
+  ],
+  "anomalies": [
+    "BNP 1480 pg/mL (reference 0-100)",
+    "Cardiothoracic ratio 0.62"
+  ],
+  "citations": [
+    "DiagnosticReport/8e1db449-45f4-5b99-a967-c69572eca05d",
+    "DiagnosticReport/823759b5-342e-5e0d-b34d-27272aeac43c",
+    "DocumentReference/8db61b99-6a63-5db6-a671-78fd7ac62eac"
+  ],
+  "word_count": 45,
+  "confidence": "high",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}

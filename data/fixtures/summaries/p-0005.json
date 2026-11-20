@@ -1,0 +1,36 @@
+{
+  "patient_id": "p-0005",
+  "chief_concern": "Increasing exertional breathlessness in known COPD.",
+  "key_diagnoses": [
+    "COPD, GOLD stage 3",
+    "Right upper lobe pulmonary nodule, 1.4 cm"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/b52ae509-48fa-5391-b699-44a032539a63",
+      "type": "imaging",
+      "date": "2025-05-20",
+      "note": "Hyperinflation and a new 1.4 cm right upper lobe nodule."
+    },
+    {
+      "resource_id": "DocumentReference/6d09699d-e5f6-5ebe-a882-2deb06de10c4",
+      "type": "note",
+      "date": "2025-05-20",
+      "note": "Urgent CT chest ordered; pulmonary rehab referral."
+    }
+  ],
+  "anomalies": [
+    "New 1.4 cm right upper lobe nodule",
+    "FEV1 44% predicted"
+  ],
+  "citations": [
+    "DiagnosticReport/b52ae509-48fa-5391-b699-44a032539a63",
+    "DocumentReference/6d09699d-e5f6-5ebe-a882-2deb06de10c4"
+  ],
+  "word_count": 44,
+  "confidence": "high",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}

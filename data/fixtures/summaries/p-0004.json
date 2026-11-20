@@ -1,0 +1,32 @@
+{
+  "patient_id": "p-0004",
+  "chief_concern": "Two months of intermittent wheeze and night cough.",
+  "key_diagnoses": [
+    "Mild persistent asthma, probable allergic trigger"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/d0fce75b-6b11-5d50-aab1-5736e13ee9c6",
+      "type": "imaging",
+      "date": "2024-06-05",
+      "note": "Normal chest x-ray."
+    },
+    {
+      "resource_id": "DocumentReference/5eeef924-e1bc-505d-8e21-f36d310c94fa",
+      "type": "note",
+      "date": "2024-06-05",
+      "note": "Reversible airflow obstruction on spirometry; inhaler started."
+    }
+  ],
+  "anomalies": [],
+  "citations": [
+    "DiagnosticReport/d0fce75b-6b11-5d50-aab1-5736e13ee9c6",
+    "DocumentReference/5eeef924-e1bc-505d-8e21-f36d310c94fa"
+  ],
+  "word_count": 24,
+  "confidence": "medium",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}

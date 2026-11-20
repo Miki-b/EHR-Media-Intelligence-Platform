@@ -9,6 +9,7 @@ def _offline_settings(monkeypatch, tmp_path):
     monkeypatch.setenv("CHROMA_PATH", str(tmp_path / "chroma"))
     monkeypatch.setenv("REJECTED_PATH", str(tmp_path / "rejected.jsonl"))
     monkeypatch.setenv("SUMMARY_CACHE_PATH", str(tmp_path / "summaries.jsonl"))
+    monkeypatch.setenv("EMBED_MODEL", "hash")  # no model download in tests
     from app.config import get_settings
 
     get_settings.cache_clear()

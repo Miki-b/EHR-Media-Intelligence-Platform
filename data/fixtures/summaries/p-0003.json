@@ -1,0 +1,42 @@
+{
+  "patient_id": "p-0003",
+  "chief_concern": "Three days of fever, productive cough and right-sided chest pain.",
+  "key_diagnoses": [
+    "Community-acquired pneumonia, right lower lobe"
+  ],
+  "recent_media": [
+    {
+      "resource_id": "DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a",
+      "type": "imaging",
+      "date": "2024-11-18",
+      "note": "Right lower lobe consolidation with air bronchograms."
+    },
+    {
+      "resource_id": "DiagnosticReport/99291aaf-5745-5cf0-8df4-980fafc5afe9",
+      "type": "lab",
+      "date": "2024-11-18",
+      "note": "WBC 15.2 with neutrophilia."
+    },
+    {
+      "resource_id": "DocumentReference/e89b4657-32c6-5bd0-a080-3e9276fa28cd",
+      "type": "note",
+      "date": "2024-11-18",
+      "note": "Treated as outpatient with oral antibiotics."
+    }
+  ],
+  "anomalies": [
+    "WBC 15.2 x10^3/uL (reference 4.0-11.0)",
+    "SpO2 93% on room air"
+  ],
+  "citations": [
+    "DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a",
+    "DiagnosticReport/99291aaf-5745-5cf0-8df4-980fafc5afe9",
+    "DocumentReference/e89b4657-32c6-5bd0-a080-3e9276fa28cd"
+  ],
+  "word_count": 42,
+  "confidence": "high",
+  "disclaimer": "AI-generated summary for information only. It is not a clinical decision and must be verified against the source records.",
+  "model": "fixture",
+  "prompt_version": "v1",
+  "generated_at": "2025-10-01T00:00:00Z"
+}
