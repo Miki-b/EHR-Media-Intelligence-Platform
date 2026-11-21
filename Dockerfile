@@ -26,7 +26,7 @@ WORKDIR /app
 
 # CPU-only torch keeps the image a few GB smaller than the default CUDA wheels.
 COPY pyproject.toml README.md ./
-RUN pip install --extra-index-url https://download.pytorch.org/whl/cpu torch \
+RUN pip install --index-url https://download.pytorch.org/whl/cpu torch \
  && mkdir -p app && touch app/__init__.py \
  && pip install -e .
 
