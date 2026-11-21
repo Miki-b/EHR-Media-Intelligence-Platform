@@ -1,27 +1,76 @@
-# Labelled search queries for `make eval`.
-# relevant: resource ids a clinician would expect in the top 5. Ids are the
-# deterministic UUIDv5 ids from data/fixtures (see scripts/make_fixtures.py), so
-# they are stable across re-runs. Summary ids are "Summary/<patient_id>".
+# Labelled search queries for `make eval` against the real pipeline output
+# (scripts/generate_data.py --seed 42 -> ingest -> fhir -> summarize -> index; 18 patients).
+# relevant: resource ids a clinician would expect in the top 5. Resource ids are
+# deterministic UUIDv5 (decision 4), so they are stable across re-runs. Summary ids are
+# "Summary/<patient_id>". Labelled on 2026-11-21 by reading every record;
+# fixture-mode labels live in queries.fixtures.yaml.
 queries:
   - query: abnormal chest x-ray
     relevant:
-      - DiagnosticReport/8e1db449-45f4-5b99-a967-c69572eca05d   # p-0001 CXR, edema
-      - DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a   # p-0003 CXR, consolidation
-      - DiagnosticReport/b52ae509-48fa-5391-b699-44a032539a63   # p-0005 CXR, nodule
+      - DiagnosticReport/15c14244-50a5-5ad4-b90a-058eda99baba   # p-0001 CXR, CHF edema
+      - DiagnosticReport/9032de2f-62ae-5a73-a295-8bb97fc1d883   # p-0010 CXR, CHF edema
+      - DiagnosticReport/a4280f38-919d-5ecd-a150-bc71a09f88bb   # p-0002 CXR, RLL consolidation
+      - DiagnosticReport/63c36e7d-e86b-5eea-9bcf-d15fb10d389d   # p-0009 CXR, LLL consolidation
+      - DiagnosticReport/9a2b5e02-8534-5138-867d-e271f5d799a1   # p-0004 CXR, hyperinflation
+      - DiagnosticReport/72424497-ea82-55d9-b5a8-7a7726702453   # p-0011 CXR, hyperinflation
   - query: CXR showing consolidation
     relevant:
-      - DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a   # p-0003 CXR
-      - DocumentReference/e89b4657-32c6-5bd0-a080-3e9276fa28cd  # p-0003 ED note quoting the CXR
+      - DiagnosticReport/a4280f38-919d-5ecd-a150-bc71a09f88bb   # p-0002 CXR
+      - DiagnosticReport/63c36e7d-e86b-5eea-9bcf-d15fb10d389d   # p-0009 CXR
+      - DocumentReference/069f0e43-0eda-51ab-af13-2cfaed8f3464  # p-0002 pneumonia discharge
+      - DocumentReference/fc4dc69f-ec4f-5d41-9414-91d6ef5c2cdb  # p-0009 pneumonia discharge
   - query: poorly controlled blood sugar
     relevant:
-      - DocumentReference/91c6fad4-b28f-5a7d-9121-82d1c641fe92  # p-0002 endocrinology note
-      - DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef   # p-0002 HbA1c panel
-      - Summary/p-0002
+      - DocumentReference/30055f78-2cb3-5993-a57f-11067b578220  # p-0014 T2DM progress note
+      - DocumentReference/f73a0674-5d67-54ed-98b9-3097b873717b  # p-0003-b T2DM progress note
+      - DiagnosticReport/1f6f7d63-ceed-5241-b13e-a5eb99f38c6d   # p-0014 HbA1c 9.2
+      - DiagnosticReport/f9fb13fe-869f-521b-8f43-7309af027bc5   # p-0003-b HbA1c 8.4
+      - DocumentReference/83086856-aa0f-5e37-8f21-d1848d6d1beb  # p-0003 DKA discharge
+      - DocumentReference/84263026-be11-5b56-b81e-ad45bd7108bc  # p-0012 DKA discharge
+      - Summary/p-0014
+      - Summary/p-0003-b
+      - Summary/p-0003
+      - Summary/p-0012
   - query: patients discharged after heart failure
     relevant:
-      - DocumentReference/8db61b99-6a63-5db6-a671-78fd7ac62eac  # p-0001 discharge summary
+      - DocumentReference/fbf035fe-6708-5ba7-a0d9-8dbe82624cbf  # p-0001 HF discharge summary
+      - DocumentReference/2197db22-5865-5d1d-b037-639aa4624f05  # p-0010 HF discharge summary
+      - DocumentReference/44f7294b-d3ff-5f6d-998e-faf59c0d0952  # p-0010 HF clinic note
       - Summary/p-0001
+      - Summary/p-0010
   - query: elevated HbA1c
     relevant:
-      - DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef   # p-0002 HbA1c 9.8%
-      - DiagnosticReport/3279c004-8694-5864-bef5-b12c4c534cfe   # p-0006 renal panel, HbA1c 6.1%
+      - DiagnosticReport/230956d3-79db-5a97-a2cc-93117188301c   # p-0003 HbA1c 11.2
+      - DiagnosticReport/f9fb13fe-869f-521b-8f43-7309af027bc5   # p-0003-b HbA1c 8.4
+      - DiagnosticReport/0dd302f9-9c38-5ef2-b183-d2880f2db2c0   # p-0012 HbA1c 13.5
+      - DiagnosticReport/1f6f7d63-ceed-5241-b13e-a5eb99f38c6d   # p-0014 HbA1c 9.2
+      - Summary/p-0003                                           # summaries list the HbA1c anomaly
+      - Summary/p-0003-b
+      - Summary/p-0012
+      - Summary/p-0014
+  - query: low potassium
+    relevant:
+      - DiagnosticReport/396853b6-da44-52fb-a258-1dcfa8a98bb2   # p-0001 K 2.8 (Low)
+      - DiagnosticReport/04ae21e2-cc40-5fc8-a00a-85162fafaabd   # p-0010 K 3.3 (Low)
+  - query: hip fracture after a fall
+    relevant:
+      - DocumentReference/eec3933b-0581-5fe1-b431-5f0730d5e448  # p-0005 hip fracture discharge
+      - DocumentReference/e7f6e4d7-7b12-581a-8a5e-90414bbec671  # p-0013 hip fracture discharge
+      - Summary/p-0005
+      - Summary/p-0013
+  - query: meniscus tear on knee MRI
+    relevant:
+      - DiagnosticReport/419ccd4b-b46f-5957-beea-d8ebe7c26364   # p-0006 MRI knee
+      - DiagnosticReport/29e05160-5045-5394-96e6-4bc32ec60f5d   # p-0015 MRI knee
+  - query: COPD exacerbation
+    relevant:
+      - DocumentReference/5fb0db02-4517-5646-8247-cc66bc94eb62  # p-0004 COPD discharge
+      - DocumentReference/e464ce76-ac96-5492-82fb-845e0ac20e68  # p-0011 COPD discharge
+      - DiagnosticReport/9a2b5e02-8534-5138-867d-e271f5d799a1   # p-0004 CXR hyperinflation
+      - DiagnosticReport/72424497-ea82-55d9-b5a8-7a7726702453   # p-0011 CXR hyperinflation
+      - Summary/p-0004
+      - Summary/p-0011
+  - query: new daily headaches
+    relevant:
+      - DocumentReference/a8451e73-619c-5d02-ae69-2f2d9c18d54f  # p-0007 neurology note
+      - DocumentReference/26220825-87e0-51df-ab08-71331f8e08eb  # p-0017 neurology note

@@ -1,13 +1,32 @@
 import { formatScore } from "../lib/format.js";
 
-// The relevance rail: a thin teal meter and the score to two decimals.
+const R = 17;
+const CIRCUMFERENCE = 2 * Math.PI * R;
+
+// Relevance as a small ring gauge: the arc fills with the score, the number sits inside.
 export default function ScoreMeter({ score }) {
-  const pct = Math.round(Math.min(1, Math.max(0, score)) * 100);
+  const value = Math.min(1, Math.max(0, score));
   return (
-    <div className="flex w-20 shrink-0 flex-col gap-1" aria-label={`Relevance ${formatScore(score)}`}>
-      <span className="text-sm font-semibold tabular-nums text-signal">{formatScore(score)}</span>
-      <span aria-hidden="true" className="block h-1 w-full overflow-hidden rounded-full bg-line-soft">
-        <span className="block h-full bg-signal" style={{ width: `${pct}%` }} />
+    <div className="relative size-11 shrink-0" aria-label={`Relevance ${formatScore(score)}`}>
+      <svg viewBox="0 0 40 40" className="size-full -rotate-90" aria-hidden="true">
+        <circle cx="20" cy="20" r={R} fill="none" strokeWidth="3.5" className="stroke-line-soft" />
+        <circle
+          cx="20"
+          cy="20"
+          r={R}
+          fill="none"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+          strokeDasharray={CIRCUMFERENCE}
+          strokeDashoffset={CIRCUMFERENCE * (1 - value)}
+          className="stroke-primary transition-[stroke-dashoffset] duration-500"
+        />
+      </svg>
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 grid place-items-center text-[0.7rem] font-semibold tabular-nums text-primary"
+      >
+        {formatScore(score)}
       </span>
     </div>
   );

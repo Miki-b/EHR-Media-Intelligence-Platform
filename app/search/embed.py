@@ -73,13 +73,37 @@ class SentenceTransformerEmbedder:
         return vectors.tolist()
 
 
+class OnnxEmbedder:
+    """The same sentence-transformer model through fastembed (onnxruntime): no torch,
+    a few hundred MB less resident memory. Vectors are L2-normalised like the torch path."""
+
+    def __init__(self, model_name: str):
+        import numpy as np
+        from fastembed import TextEmbedding
+
+        self.name = f"{model_name} (onnx)"
+        self._np = np
+        self._model = TextEmbedding(model_name=model_name, threads=1)
+        self.dimension = len(next(iter(self._model.embed(["dim probe"]))))
+
+    def encode(self, texts: list[str]) -> list[list[float]]:
+        out = []
+        for vec in self._model.embed(texts, batch_size=16):
+            norm = float(self._np.linalg.norm(vec)) or 1.0
+            out.append((vec / norm).astype(float).tolist())
+        return out
+
+
 @lru_cache(maxsize=4)
-def _cached(model_name: str) -> Embedder:
+def _cached(model_name: str, backend: str) -> Embedder:
     if model_name == HASH_MODEL:
         return HashEmbedder()
+    if backend == "onnx":
+        return OnnxEmbedder(model_name)
     return SentenceTransformerEmbedder(model_name)
 
 
-def get_embedder(model_name: str | None = None) -> Embedder:
+def get_embedder(model_name: str | None = None, backend: str | None = None) -> Embedder:
     """The configured embedder, loaded once per process."""
-    return _cached(model_name or get_settings().embed_model)
+    s = get_settings()
+    return _cached(model_name or s.embed_model, backend or s.embed_backend)

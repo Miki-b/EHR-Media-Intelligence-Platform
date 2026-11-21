@@ -20,10 +20,10 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b border-line bg-panel">
+    <header className="border-t-[3px] border-b border-line border-t-primary bg-panel">
       <div className="mx-auto flex max-w-6xl flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-4 py-3 sm:px-6">
-        <h1 className="text-base font-semibold tracking-tight text-ink">EHR Media Intelligence</h1>
-        <p className={`text-sm ${down ? "text-alert" : "text-muted"}`} role="status">
+        <h1 className="text-base font-semibold tracking-tight text-primary">EHR Media Intelligence</h1>
+        <p className={`text-sm ${down ? "text-critical" : "text-muted"}`} role="status">
           {status}
         </p>
       </div>

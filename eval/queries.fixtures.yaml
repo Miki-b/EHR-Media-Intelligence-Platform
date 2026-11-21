@@ -1,0 +1,26 @@
+# Labelled search queries for `make eval` in FIXTURE_MODE=1 (the six committed patients).
+# relevant: resource ids a clinician would expect in the top 5; ids are the deterministic
+# UUIDv5 ids from data/fixtures. Summary ids are "Summary/<patient_id>".
+queries:
+  - query: abnormal chest x-ray
+    relevant:
+      - DiagnosticReport/8e1db449-45f4-5b99-a967-c69572eca05d   # p-0001 CXR, edema
+      - DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a   # p-0003 CXR, consolidation
+      - DiagnosticReport/b52ae509-48fa-5391-b699-44a032539a63   # p-0005 CXR, nodule
+  - query: CXR showing consolidation
+    relevant:
+      - DiagnosticReport/39dfb6c7-dfd8-5413-bc7e-1e256987581a   # p-0003 CXR
+      - DocumentReference/e89b4657-32c6-5bd0-a080-3e9276fa28cd  # p-0003 ED note quoting the CXR
+  - query: poorly controlled blood sugar
+    relevant:
+      - DocumentReference/91c6fad4-b28f-5a7d-9121-82d1c641fe92  # p-0002 endocrinology note
+      - DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef   # p-0002 HbA1c panel
+      - Summary/p-0002
+  - query: patients discharged after heart failure
+    relevant:
+      - DocumentReference/8db61b99-6a63-5db6-a671-78fd7ac62eac  # p-0001 discharge summary
+      - Summary/p-0001
+  - query: elevated HbA1c
+    relevant:
+      - DiagnosticReport/525fa40a-87f2-5eec-a378-36ef01047eef   # p-0002 HbA1c 9.8%
+      - DiagnosticReport/3279c004-8694-5864-bef5-b12c4c534cfe   # p-0006 renal panel, HbA1c 6.1%

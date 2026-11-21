@@ -57,16 +57,30 @@ export default function App() {
     inputRef.current?.focus();
   };
 
+  // "/" jumps to the search box from anywhere, unless the user is typing or the drawer is open.
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== "/" || open || e.ctrlKey || e.metaKey || e.altKey) return;
+      const tag = e.target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || e.target?.isContentEditable) return;
+      e.preventDefault();
+      inputRef.current?.focus();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <>
       <a
         href="#query"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-panel focus:px-3 focus:py-2 focus:text-sm"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-panel focus:px-3 focus:py-2 focus:text-sm focus:text-primary"
       >
         Skip to search
       </a>
       <Header />
-      <main className="mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-6">
+      <div aria-hidden="true" className="hero-glow pointer-events-none absolute inset-x-0 top-0 -z-10 h-80" />
+      <main className="mx-auto max-w-6xl px-4 pb-16 pt-10 sm:px-6">
         <SearchBar
           ref={inputRef}
           value={query}
@@ -88,6 +102,7 @@ export default function App() {
             <ResultList
               ref={listRef}
               results={results}
+              query={query}
               onOpen={openPatient}
               busy={status === "loading"}
             />
