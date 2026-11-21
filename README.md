@@ -1,5 +1,7 @@
 # EHR Media Intelligence Platform
 
+Full technical documentation: [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)
+
 An AI-powered pipeline that ingests messy, synthetic EHR records, normalizes them to HL7 FHIR R4, generates grounded clinical summaries, and lets clinicians find relevant records in seconds with semantic search.
 
 > **All data in this repository is synthetic**, generated with Faker from a fixed seed. No real patient data is used.
@@ -40,7 +42,8 @@ An AI-powered pipeline that ingests messy, synthetic EHR records, normalizes the
 Requirements: Python 3.11+, Node 20+.
 
 ```bash
-git clone <repo-url> && cd ehr-media-intel
+git clone https://github.com/Miki-b/EHR-Media-Intelligence-Platform.git
+cd EHR-Media-Intelligence-Platform
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 cp .env.example .env                                # works as-is with the mock LLM
 make install
