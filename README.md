@@ -163,7 +163,7 @@ committed cache, MiniLM embeddings on CPU.
 | Precision@5 | 0.70, against a ceiling of 0.78 set by the number of labels per query |
 | Latency | tens of milliseconds per query, p95 under 150 ms across runs on a laptop CPU (budget: 2 s for 50 records) |
 
-Eight of ten queries rank a relevant record first. The two that do not are both negation cases:
+Nine of ten queries rank a relevant record first. The one that does not is a negation case:
 for "abnormal chest x-ray" the two *normal* pre-employment films rank above the abnormal ones,
 because "no acute cardiopulmonary process" embeds close to the query. See limitations.
 

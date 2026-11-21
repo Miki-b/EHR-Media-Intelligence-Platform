@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pytest
 
+from app.config import ROOT
 from app.contracts import ClinicalSummary
 from app.fixtures import content_hash, load_fixtures
 
@@ -105,3 +106,42 @@ def test_fixture_mode_uses_its_own_paths(monkeypatch):
     monkeypatch.delenv("DB_PATH")
     get_settings.cache_clear()
     assert get_settings().db_path.name == "ehr.db"
+
+
+@pytest.mark.parametrize(
+    ("db_path", "chroma_path"),
+    [
+        ("data/ehr.db", "data/chroma"),  # what a .env copied from .env.example used to set
+        (str(ROOT / "data" / "ehr.db"), str(ROOT / "data" / "chroma")),  # same, absolute
+    ],
+)
+def test_fixture_mode_ignores_paths_that_restate_the_default(db_path, chroma_path, monkeypatch):
+    from app.config import Settings
+
+    for var in ("DB_PATH", "CHROMA_PATH"):  # conftest points these at tmp
+        monkeypatch.delenv(var, raising=False)
+
+    s = Settings(_env_file=None, fixture_mode=True, db_path=db_path, chroma_path=chroma_path)
+    assert s.db_path.name == "fixtures.db"
+    assert s.chroma_path.name == "chroma-fixtures"
+
+
+def test_fixture_mode_keeps_a_deliberate_path(monkeypatch):
+    from app.config import Settings
+
+    for var in ("DB_PATH", "CHROMA_PATH"):  # conftest points these at tmp
+        monkeypatch.delenv(var, raising=False)
+
+    s = Settings(_env_file=None, fixture_mode=True, db_path="elsewhere.db")
+    assert s.db_path == Path("elsewhere.db")
+    assert s.chroma_path.name == "chroma-fixtures"
+
+
+def test_pipeline_mode_keeps_the_default_paths(monkeypatch):
+    from app.config import Settings
+
+    for var in ("DB_PATH", "CHROMA_PATH"):  # conftest points these at tmp
+        monkeypatch.delenv(var, raising=False)
+
+    s = Settings(_env_file=None, db_path="data/ehr.db")
+    assert s.db_path == Path("data/ehr.db")
