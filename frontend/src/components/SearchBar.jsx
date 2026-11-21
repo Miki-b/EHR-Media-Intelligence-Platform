@@ -26,7 +26,7 @@ const SearchBar = forwardRef(function SearchBar(
         placeholder="Describe what you are looking for, like elevated HbA1c"
         aria-describedby="search-help"
         aria-controls="results"
-        className="mt-1 w-full border-0 border-b-2 border-line bg-transparent py-2 text-xl text-ink placeholder:text-faint focus:border-signal focus:outline-none focus-visible:outline-none sm:text-2xl"
+        className="mt-1 w-full border-0 border-b-2 border-line bg-transparent py-2 text-xl text-ink placeholder:text-faint focus:border-primary focus:outline-none focus-visible:outline-none sm:text-2xl"
       />
       <div
         aria-hidden="true"

@@ -21,7 +21,7 @@ export function Idle({ onPick }) {
             <button
               type="button"
               onClick={() => onPick(q)}
-              className="rounded-full border border-line bg-panel px-3 py-1 text-sm text-ink hover:border-signal hover:text-signal"
+              className="rounded-full border border-line bg-panel px-3 py-1 text-sm text-ink hover:border-primary hover:text-primary"
             >
               {q}
             </button>
@@ -45,7 +45,7 @@ export function NoResults({ query, filtered, onClearFilters }) {
         <button
           type="button"
           onClick={onClearFilters}
-          className="mt-4 rounded border border-signal px-3 py-1.5 text-sm text-signal hover:bg-signal-soft"
+          className="mt-4 rounded bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-hover active:bg-primary-hover"
         >
           Clear filters
         </button>
@@ -58,7 +58,7 @@ export function Failed({ message }) {
   const offline = /not reachable/i.test(message ?? "");
   return (
     <section className="py-10" role="alert">
-      <h2 className="text-lg font-medium text-alert">
+      <h2 className="text-lg font-medium text-critical">
         {offline ? "The API is not reachable." : "Search failed."}
       </h2>
       <p className="mt-1 max-w-prose text-sm text-muted">

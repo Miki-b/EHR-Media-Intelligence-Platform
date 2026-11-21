@@ -124,7 +124,7 @@ export default function PatientDrawer({ patientId, highlight, onClose }) {
             </p>
           )}
           {state.status === "error" && (
-            <p role="alert" className="text-sm text-alert">
+            <p role="alert" className="text-sm text-critical">
               Could not load this patient. {state.error}
             </p>
           )}
@@ -190,7 +190,7 @@ function Summary({ summary }) {
           <ul className="space-y-1">
             {summary.anomalies.map((a) => (
               <li key={a} className="flex gap-2 font-serif text-[15px] text-ink">
-                <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-alert" />
+                <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-warning" />
                 {a}
               </li>
             ))}
@@ -198,7 +198,7 @@ function Summary({ summary }) {
         </Block>
       )}
 
-      <p className="mt-5 border-l-2 border-alert bg-alert-soft/60 px-3 py-2 text-xs leading-relaxed text-ink">
+      <p className="mt-5 border-l-2 border-warning bg-warning-tint px-3 py-2 text-xs leading-relaxed text-ink">
         {summary.disclaimer}
       </p>
     </section>
@@ -236,14 +236,14 @@ function Resources({ resources, highlight }) {
               <li
                 key={r.resource_id}
                 data-resource-id={r.resource_id}
-                className={`grid grid-cols-[1fr_auto] gap-x-3 py-2 text-sm ${isHighlight ? "bg-signal-soft/70 -mx-2 px-2" : ""}`}
+                className={`grid grid-cols-[1fr_auto] gap-x-3 py-2 text-sm ${isHighlight ? "bg-primary-tint -mx-2 px-2" : ""}`}
               >
                 <div className="min-w-0">
                   <p className="truncate text-ink">{r.title}</p>
                   <p className="mt-0.5 flex flex-wrap items-center gap-x-3 text-xs text-muted">
                     <TypeTag resourceType={r.resource_type} />
                     <time className="tabular-nums">{formatDate(r.date)}</time>
-                    {isHighlight && <span className="text-signal">Matched your search</span>}
+                    {isHighlight && <span className="text-primary">Matched your search</span>}
                   </p>
                 </div>
                 <span className={`self-center text-xs ${r.cited ? "text-summary" : "text-faint"}`}>

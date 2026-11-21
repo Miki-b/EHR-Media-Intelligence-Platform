@@ -42,7 +42,7 @@ const ResultList = forwardRef(function ResultList({ results, onOpen, busy }, ref
             onClick={() => onOpen(r.patient_id, r.resource_id)}
             onKeyDown={(e) => onKeyDown(e, i)}
             aria-label={`${r.patient_name}, MRN ${r.mrn}, ${r.resource_type} dated ${formatDate(r.date)}, relevance ${r.score.toFixed(2)}. Open patient.`}
-            className="grid w-full grid-cols-[5rem_1fr] gap-x-4 gap-y-1 px-2 py-3 text-left hover:bg-panel focus-visible:bg-panel sm:px-3"
+            className="grid w-full grid-cols-[5rem_1fr] gap-x-4 gap-y-1 px-2 py-3 text-left hover:bg-primary-tint focus-visible:bg-primary-tint sm:px-3"
           >
             <ScoreMeter score={r.score} />
             <div className="min-w-0">

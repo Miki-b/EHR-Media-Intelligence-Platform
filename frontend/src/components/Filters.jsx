@@ -1,7 +1,7 @@
 import { RESOURCE_TYPES } from "../lib/format.js";
 
 const field =
-  "rounded border border-line bg-panel px-2 py-1.5 text-sm text-ink focus:border-signal focus:outline-none focus-visible:outline-none";
+  "rounded border border-line bg-panel px-2 py-1.5 text-sm text-ink focus:border-primary focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40";
 
 export default function Filters({ filters, onChange }) {
   const set = (key) => (e) => onChange({ ...filters, [key]: e.target.value });
@@ -51,7 +51,7 @@ export default function Filters({ filters, onChange }) {
         <button
           type="button"
           onClick={() => onChange({ resource_type: "", date_from: "", date_to: "" })}
-          className="pb-1.5 text-sm text-signal underline-offset-2 hover:underline"
+          className="pb-1.5 text-sm text-primary underline-offset-2 hover:text-primary-hover hover:underline"
         >
           Clear filters
         </button>
