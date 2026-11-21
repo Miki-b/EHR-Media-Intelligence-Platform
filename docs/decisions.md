@@ -1,12 +1,12 @@
 # Design decisions
 
-One entry per decision: what we chose, what we rejected, and why. These feed the README and the write-up.
+One entry per decision: what was chosen, what was rejected, and why. These feed the README and the write-up.
 
 | # | Decision | Rejected | Why |
 | --- | --- | --- | --- |
 | 1 | ChromaDB for vectors | FAISS | Built-in metadata filters cover resource type and date range |
 | 2 | Local `all-MiniLM-L6-v2` embeddings | API embeddings | Free, offline, fast on CPU for 50 records |
-| 3 | FHIR Bundle type `collection` with `urn:uuid` references | `transaction` | We store bundles, we don't post them to a FHIR server |
+| 3 | FHIR Bundle type `collection` with `urn:uuid` references | `transaction` | Bundles are stored, not posted to a FHIR server |
 | 4 | Deterministic UUIDv5 resource ids | Random UUIDs | Re-runs produce identical bundles, so cache keys stay stable |
 | 5 | Ambiguous slash dates read as US `MM/DD`, logged in the audit trail | Guessing silently | Epic is a US system; the audit entry keeps the assumption visible |
 | 6 | LLM output through a forced tool schema, validated with Pydantic | Parsing free text | Structured output is checkable; malformed output is retried |
@@ -26,7 +26,7 @@ One entry per decision: what we chose, what we rejected, and why. These feed the
 | 20 | A resource that fails validation is dropped from its bundle and logged in `validation_errors`; `is_valid = 0` only if the assembled bundle fails | Marking the whole bundle invalid | The indexer skips invalid bundles, so one bad lab row would hide a patient from search; the issue stays visible in the report |
 | 21 | Labs grouped per patient per date into one LAB DiagnosticReport whose `result[]` lists the Observations; lab reports have no `presentedForm` | Standalone Observations, or repeating values in a text form | Search only indexes DocumentReference and DiagnosticReport and reads lab values through `result[]`; no presentedForm keeps each value once in the indexed text |
 | 22 | No Encounter resources | Synthesizing encounters from record dates | The raw data has no encounter information; inventing visits would be fabricated clinical data, and nothing downstream needs them |
-| 23 | LOINC codes only where verified; otherwise a text-only CodeableConcept. A lab whose source had no test name gets no `code` at all | Guessing codes, or a placeholder code | A wrong code is worse than none; leaving `code` out lets the FHIR validator catch the seeded failure instead of us hiding it |
+| 23 | LOINC codes only where verified; otherwise a text-only CodeableConcept. A lab whose source had no test name gets no `code` at all | Guessing codes, or a placeholder code | A wrong code is worse than none; leaving `code` out lets the FHIR validator catch the seeded failure instead of the mapper hiding it |
 | 24 | Date-only values written as instants at `T12:00:00Z` (`DocumentReference.date`) | `T00:00:00Z` | Midnight UTC shows as the previous day in timezones west of UTC; noon stays on the right day everywhere |
 | 25 | Structured output through a `record_summary` tool with `strict: true` and `tool_choice: auto`, plus a prompt naming the tool; no tool call is an invalid answer and is retried | Forcing `tool_choice` to the tool | Forced tool choice returns a 400 on Opus 5.5 / Sonnet 5.5 and cannot be combined with thinking, which is on by default on current models; strict tool use still guarantees schema-valid arguments |
 | 26 | No `temperature` parameter; `max_tokens` 4096 | `temperature=0`, `max_tokens` 800 | Current models (Haiku 5.5, Opus 5.5) reject non-default sampling with a 400; repeatability comes from the cache instead. Thinking tokens count toward `max_tokens`, so 800 risked truncated answers |

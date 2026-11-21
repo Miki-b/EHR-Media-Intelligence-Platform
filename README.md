@@ -1,5 +1,7 @@
 # EHR Media Intelligence Platform
 
+Full technical documentation: [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md)
+
 An AI-powered pipeline that ingests messy, synthetic EHR records, normalizes them to HL7 FHIR R4, generates grounded clinical summaries, and lets clinicians find relevant records in seconds with semantic search.
 
 > **All data in this repository is synthetic**, generated with Faker from a fixed seed. No real patient data is used.
@@ -40,7 +42,8 @@ An AI-powered pipeline that ingests messy, synthetic EHR records, normalizes the
 Requirements: Python 3.11+, Node 20+.
 
 ```bash
-git clone <repo-url> && cd ehr-media-intel
+git clone https://github.com/Miki-b/EHR-Media-Intelligence-Platform.git
+cd EHR-Media-Intelligence-Platform
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 cp .env.example .env                                # works as-is with the mock LLM
 make install
@@ -178,7 +181,7 @@ because "no acute cardiopulmonary process" embeds close to the query. See limita
 | Disclaimer present | 100% |
 | LLM calls on a second run (cache) | 0 |
 
-How we validated summary quality: structured output through a tool schema validated by Pydantic;
+How I validated summary quality: structured output through a tool schema validated by Pydantic;
 generation-time grounding checks that drop claims citing unknown ids, flag unsupported diagnoses
 and add missed abnormal labs (confidence is derived from those checks, never self-reported);
 the automated eval above; and a manual review template,
@@ -190,7 +193,7 @@ clinical correctness. Prompt v1 to v2 numbers are in `eval/summary_results_v1.md
 
 - **Negation.** Dense embeddings do not distinguish "consolidation" from "no consolidation", and
   BM25 makes it worse by rewarding the shared term. A cross-encoder reranker over the top 20
-  candidates is the standard fix and the first thing we would add.
+  candidates is the standard fix and the first thing I would add.
 - **Small, synthetic corpus.** 18 patients and 10 labelled queries by one annotator. Real
   evaluation needs more queries, a second annotator and agreement statistics, and nDCG.
 - **One result per record, not per patient.** Clinicians often want "which patients", with the

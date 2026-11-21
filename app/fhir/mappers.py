@@ -12,12 +12,12 @@ Rules:
   is an instant, so a date-only value is written at 12:00Z (no timezone shift to the
   previous day).
 - imaging records -> DiagnosticReport (category RAD); `conclusion` is the report's
-  IMPRESSION section, the full text goes in presentedForm. Codes are LOINC only where we
-  have a verified code; otherwise the CodeableConcept carries text only.
+  IMPRESSION section, the full text goes in presentedForm. Codes are LOINC only where a
+  verified code exists; otherwise the CodeableConcept carries text only.
 - lab records -> Observation (category laboratory) with LOINC code, valueQuantity (UCUM
   where the unit is known), numeric referenceRange low/high (text when the range is not
   "lo-hi") and interpretation H/L/N. A lab whose source had no test name and no LOINC code
-  gets no `code` at all, so FHIR validation reports it instead of us inventing one.
+  gets no `code` at all, so FHIR validation reports it instead of the mapper inventing one.
 - Labs are grouped per patient per date into one DiagnosticReport (category LAB) whose
   result[] lists the Observations; search reads lab values through that report. Its
   conclusion names only the abnormal values; there is no presentedForm, so each value

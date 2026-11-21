@@ -91,7 +91,7 @@ Concepts used:
   which needs far more data than 18 patients to estimate weights. Name similarity is
   rapidfuzz `token_sort_ratio`, which ignores token order ("SMITH, JOHN" vs "John Smith").
 - **Overlay vs. duplicate MRNs**: one MRN on two people (an "overlay") is the dangerous
-  case; merging would mix two charts. We never merge when DOB and name both disagree.
+  case; merging would mix two charts. Records are never merged when DOB and name both disagree.
 - **ISO/IEC 5218** sex codes: 1 = male, 2 = female (0 = not known, 9 = not applicable).
 - **LOINC** codes are inferred from lab test names so Task 2 can code Observations.
 - Content hashing for dedupe: case-folded, whitespace-collapsed text, so re-exports with a
@@ -110,14 +110,14 @@ Problems hit:
 
 ## FHIR and clinical concepts researched
 
-- 2026-11-21 **Bundle `collection` vs `transaction`.** A collection is just a set of resources; a transaction is a batch of requests for a FHIR server. We never POST to a server, so collection is right. Inside a bundle, `urn:uuid:` references resolve against each entry's `fullUrl`, so the bundle is self-contained.
-- 2026-11-21 **Where document text lives.** `DocumentReference.content[].attachment.data` is base64 (`base64Binary`), with `contentType`. Scanned PDFs would be binary here; our synthetic notes are `text/plain`. The chunker decodes text types only and falls back to `description` for anything else.
+- 2026-11-21 **Bundle `collection` vs `transaction`.** A collection is just a set of resources; a transaction is a batch of requests for a FHIR server. Nothing is POSTed to a server, so collection is right. Inside a bundle, `urn:uuid:` references resolve against each entry's `fullUrl`, so the bundle is self-contained.
+- 2026-11-21 **Where document text lives.** `DocumentReference.content[].attachment.data` is base64 (`base64Binary`), with `contentType`. Scanned PDFs would be binary here; the synthetic notes are `text/plain`. The chunker decodes text types only and falls back to `description` for anything else.
 - 2026-11-21 **DiagnosticReport anatomy.** `code` (LOINC panel, e.g. 36643-5 "Chest X-ray 2 views", 4548-4 HbA1c), `category` (v2-0074: LAB, RAD), `conclusion` (free-text impression), `result[]` references to `Observation`s, `presentedForm[]` for the full report. Imaging reports have no Observations; labs do.
-- 2026-11-21 **Observation interpretation flags** use v3-ObservationInterpretation codes H / L / N, and `referenceRange.low/high` carry the normal range. We fold these into the parent report's chunk text ("HbA1c: 9.8 % (High; reference 4 %-5.6 %)") so lab values are searchable.
-- 2026-11-21 **Partial dates are legal FHIR.** `date`/`dateTime` can be "2025" or "2025-03". We resolve them to the first day so date filters still work; `DocumentReference.date` is an `instant` and must carry a time.
+- 2026-11-21 **Observation interpretation flags** use v3-ObservationInterpretation codes H / L / N, and `referenceRange.low/high` carry the normal range. These are folded into the parent report's chunk text ("HbA1c: 9.8 % (High; reference 4 %-5.6 %)") so lab values are searchable.
+- 2026-11-21 **Partial dates are legal FHIR.** `date`/`dateTime` can be "2025" or "2025-03". They resolve to the first day so date filters still work; `DocumentReference.date` is an `instant` and must carry a time.
 - 2026-11-21 **fhir.resources 8.x** exposes R4 as `fhir.resources.R4B`; the top-level package is R5. Validation catches missing required fields (e.g. `Encounter.class`, `DocumentReference.status`) but not clinical sense.
 
-## Problems hit and how we solved them
+## Problems hit and how I solved them
 
 - 2026-11-21 **Importing torch + sentence-transformers takes ~30 s on the Windows dev laptop**, while loading MiniLM takes 1.4 s and embedding 20 chunks 0.1 s. It is a per-process startup cost, not per-query: the API pays it once at boot, queries take 40-190 ms. Tests use `EMBED_MODEL=hash`, a deterministic bag-of-words embedder, so they never import torch.
 - 2026-11-21 **Hugging Face Hub round-trips on every model load.** Fixed by trying `local_files_only=True` first and only going to the network when the cache is empty.

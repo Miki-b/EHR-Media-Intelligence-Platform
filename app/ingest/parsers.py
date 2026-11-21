@@ -109,7 +109,7 @@ def _as_str(value: Any) -> str | None:
 
 
 def _pick(obj: dict[str, Any], fields: dict[str, tuple[str, ...]]) -> dict[str, str | None]:
-    """Map loosely named keys in `obj` to our field names, first alias wins."""
+    """Map loosely named keys in `obj` to the internal field names, first alias wins."""
     by_key = {_key(k): v for k, v in obj.items()}
     picked: dict[str, str | None] = {}
     for name, aliases in fields.items():
