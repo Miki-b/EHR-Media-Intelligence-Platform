@@ -31,6 +31,9 @@ class Settings(BaseSettings):
     fixtures_dir: Path = ROOT / "data" / "fixtures"
     reports_dir: Path = ROOT / "reports"
     embed_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # torch: sentence-transformers (default). onnx: the same model through fastembed /
+    # onnxruntime, ~1 GB less memory, for small hosts. EMBED_MODEL=hash ignores this.
+    embed_backend: Literal["torch", "onnx"] = "torch"
 
     api_host: str = "127.0.0.1"
     api_port: int = 8000
