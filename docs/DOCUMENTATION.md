@@ -1,6 +1,6 @@
 # EHR Media Intelligence Platform: Technical Documentation
 
-**Version** 1.0 · **Repository** [`Miki-b/EHR-Media-Intelligence-Platform`](https://github.com/Miki-b/EHR-Media-Intelligence-Platform) · **Stack** Python 3.11+, FastAPI, Pydantic v2, `fhir.resources`, SQLite, ChromaDB, sentence-transformers, Claude API, React, Tailwind CSS
+**Version** 1.0 · **Repository** [`Miki-b/EHR-Media-Intelligence-Platform`](https://github.com/Miki-b/EHR-Media-Intelligence-Platform) · **Live demo** [ehr-media-intelligence.onrender.com](https://ehr-media-intelligence.onrender.com/) · **Stack** Python 3.11+, FastAPI, Pydantic v2, `fhir.resources`, SQLite, ChromaDB, sentence-transformers, Claude API, React, Tailwind CSS
 
 > All data in this repository is synthetic, generated with Faker from a fixed seed. No real patient data is used anywhere.
 
@@ -47,7 +47,7 @@ It does four things, in order:
 
 | Area | Result |
 | --- | --- |
-| Cleaning | 62 planted defects of 12 types, each resolved with an audit entry; 0 ground-truth mismatches |
+| Cleaning | 60 planted defects of 12 types, each resolved with an audit entry; 0 ground-truth mismatches |
 | FHIR | 18 bundles, 92 resources; the single seeded invalid resource is caught and reported |
 | Summaries | 100% of citations resolve; 100% of diagnoses supported by cited records; 100% of abnormal labs reported; max 103 words (limit 200) |
 | Search | MRR 0.93, Recall@5 0.80, p95 latency 138 ms (budget 2 s) |
@@ -273,7 +273,7 @@ One collection, `ehr_chunks`, cosine distance. Each entry is one chunk of text w
 | `DEFECTS.md` | Every injected defect instance with its location and expected result |
 | `ground_truth.json` | The answer key used only by tests: true identity, demographics and record ownership |
 
-**Defects planted (62 instances, plus one deliberate FHIR failure)**
+**Defects planted (60 instances, plus one deliberate FHIR failure)**
 
 | # | Defect | Instances | Example |
 | --- | --- | --- | --- |
@@ -857,6 +857,8 @@ flowchart LR
     M --> C["Container · port 7860<br/>FastAPI serves API + UI"]
 ```
 
+**Live demo:** [https://ehr-media-intelligence.onrender.com/](https://ehr-media-intelligence.onrender.com/). It runs `Dockerfile.render` on Render's free tier, which sleeps after 15 idle minutes, so the first request after a pause takes about a minute.
+
 | Option | File | Notes |
 | --- | --- | --- |
 | Full image | `Dockerfile` | Builds the UI, runs the whole pipeline at build time with no API key, serves UI and API on port 7860; about 2 GB RAM for torch |
@@ -926,7 +928,7 @@ docker run -p 7860:7860 ehr-demo      # http://localhost:7860
 
 ## 20. Development history
 
-The history on `main` is seven commits: the scaffold, one squash-merged commit per major component, and a final polish commit.
+The history on `main` starts with seven commits: the scaffold, one squash-merged commit per major component, and a final polish commit. Documentation commits follow.
 
 | Commit | Scope |
 | --- | --- |
