@@ -1,0 +1,24 @@
+# EHR Media Intelligence Platform: write-up
+
+Two developers, five tasks, one weekend. Dev A built ingestion, FHIR mapping and AI summaries; Dev B built search, the API and the clinician UI. Repository: `Miki-b/EHR-Media-Intelligence-Platform`. Everything below runs offline from a fresh clone with the mock LLM; the committed summary cache carries real Claude output.
+
+## Tradeoffs made and why
+
+- **Rules, not an LLM, clean the data.** Every normalisation (dates in five formats, gender codes, MRN padding, duplicates, two people sharing an MRN) is a deterministic rule with an audit entry. Clinicians and auditors need to see why a value changed; a model cannot give that guarantee. The synthetic generator plants 50 documented defects so each rule has a known answer.
+- **Deterministic ids everywhere.** Bundles use UUIDv5 ids and `collection` type, so re-runs are byte-identical. That makes the summary cache key (patient, bundle hash, prompt version) exact: the second run makes zero LLM calls, and eval labels never move.
+- **Structured, grounded summaries.** The model answers through one strict tool schema, each diagnosis and anomaly carries the ids it came from, and code re-checks every claim against the source text, drops unsupported ones and adds missed abnormal labs. Confidence is computed from those checks, never self-reported. We chose no temperature control and relied on the cache for repeatability, because current models reject the parameter and the cache guarantees identical output anyway.
+- **Hybrid search over local embeddings.** all-MiniLM-L6-v2 on CPU plus BM25, blended 0.7 / 0.3, in Chroma with scalar metadata for type and date filters. Free, offline, 40 ms per query. Observations are folded into their lab report's text rather than indexed separately, keeping the three result types the contract allows.
+- **Fixtures with their own database.** Six hand-written, validated bundles let search and UI be built before the pipeline existed, and `FIXTURE_MODE` keeps them out of the real tables because patient ids overlap.
+- **A worklist, not a card grid.** Rows led by a relevance meter, AI text in a serif face so it is visibly different from source text, summary and cited records side by side so the clinician can verify.
+
+## What we would improve with more time
+
+A cross-encoder reranker over the top 20 candidates: negation is our clearest failure ("no acute cardiopulmonary process" ranks above abnormal films for "abnormal chest x-ray"). Numeric facets on lab Observations so "HbA1c over 9" is a filter, not a text match. Patient-level grouping of results. A larger labelled query set with a second annotator and nDCG. Probabilistic identity matching with a review queue. Terminology validation of LOINC codes. Authentication, access audit and PHI controls before any real data.
+
+## FHIR and clinical concepts we had to research
+
+Bundle `collection` versus `transaction` and `urn:uuid` resolution against `fullUrl`. Where document text lives (`DocumentReference.content[].attachment.data`, base64, with `date` as an `instant` that needs a time). The anatomy of `DiagnosticReport`: `category` (LAB / RAD), `conclusion`, `presentedForm`, and `result[]` references to `Observation`s, which carry `valueQuantity` with UCUM units, `interpretation` (H / L / N) and `referenceRange`. That `fhir.resources` 8.x exposes R4 as `R4B` and validates structure, not terminology. Clinical vocabulary for the synthetic cases: HFrEF and BNP, DKA, CURB-65, GOLD stages, CKD stages and eGFR, common abbreviations the grounding checker must expand (HTN, CHF, T2DM, COPD).
+
+## How we validated AI summary quality
+
+Four layers. (1) Schema: the tool call is enforced by the API and re-validated by Pydantic; malformed output is retried. (2) Generation-time grounding: claims citing unknown ids are dropped, diagnoses the cited text does not support are flagged, media dates are overwritten from the bundle, and any flagged lab the model omitted is added. (3) Automated eval over all 18 patients: 100% of citations resolve, 100% of diagnoses are supported by cited records, 100% of abnormal labs appear in anomalies, max 103 words, disclaimer always present, zero LLM calls on a second run. Reviewing prompt v1 by hand found five checker false positives and one real inference, which led to stem-based matching and prompt v2. (4) A manual review template (`docs/summary_review.md`) for a clinician to score chief concern, diagnoses, invented content and anomalies against the source records, because none of the above can judge clinical correctness.

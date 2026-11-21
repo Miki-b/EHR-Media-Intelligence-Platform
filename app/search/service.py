@@ -30,6 +30,7 @@ from app.search.embed import Embedder, get_embedder, tokenize
 from app.search.index import date_int, get_collection
 from app.search.rank import Candidate, collapse_by_resource, cosine_from_distance, normalise
 from app.search.rank import snippet as make_snippet
+from app.summarize.prompts import PROMPT_VERSION
 
 log = logging.getLogger(__name__)
 
@@ -94,10 +95,13 @@ class SearchService:
         with connect(self.db_path) as conn:
             for row in conn.execute("SELECT * FROM patients"):
                 self.patients[row["patient_id"]] = dict(row)
+            # One summary per patient: the current prompt version wins, then the newest.
             rows = conn.execute(
                 "SELECT s.patient_id, s.summary_json FROM summaries s"
                 " JOIN bundles b ON b.patient_id = s.patient_id"
-                " AND b.content_hash = s.content_hash ORDER BY s.created_at"
+                " AND b.content_hash = s.content_hash"
+                " ORDER BY (s.prompt_version = ?), s.created_at",
+                (PROMPT_VERSION,),
             )
             for row in rows:
                 self.summaries[row["patient_id"]] = ClinicalSummary.model_validate_json(
