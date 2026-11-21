@@ -1,0 +1,48 @@
+# Slim demo image for small hosts (Render free tier: 512 MB RAM). Same app as Dockerfile,
+# but embeddings run through onnxruntime (fastembed) instead of torch, which keeps the
+# resident memory of the API around 350 MB. The pipeline and the index are built into the
+# image, so a cold start only has to load the model.
+#
+#   docker build -f Dockerfile.render -t ehr-demo-slim .
+#   docker run -p 7860:7860 ehr-demo-slim
+
+FROM node:20-slim AS ui
+WORKDIR /ui
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+ENV VITE_API_BASE=""
+RUN npm run build
+
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
+    FASTEMBED_CACHE_PATH=/app/.cache/fastembed HF_HOME=/app/.cache/huggingface \
+    OMP_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false \
+    LLM_PROVIDER=mock EMBED_BACKEND=onnx API_HOST=0.0.0.0 PORT=7860
+WORKDIR /app
+
+# Runtime deps only: everything in pyproject except sentence-transformers (which pulls torch),
+# plus fastembed. Keep this list in step with [project.dependencies].
+RUN pip install \
+      "pydantic>=2.7,<3" "pydantic-settings>=2.3,<3" "fhir.resources>=7.1,<9" \
+      "python-dateutil>=2.9" "rapidfuzz>=3.9" "faker==40.63.0" "anthropic>=0.40" \
+      "fastapi>=0.111" "uvicorn[standard]>=0.30" "chromadb>=0.5" "rank-bm25>=0.2.2" \
+      "pyyaml>=6.0" "fastembed>=0.4"
+
+COPY pyproject.toml README.md ./
+COPY app/ app/
+COPY scripts/ scripts/
+COPY eval/ eval/
+COPY data/ data/
+COPY docs/ docs/
+COPY --from=ui /ui/dist frontend/dist
+RUN pip install --no-deps -e .
+
+# Dataset, summaries (from the committed cache) and the vector index, baked in.
+RUN python scripts/generate_data.py && python -m app.pipeline all
+
+RUN useradd -m -u 1000 app && chown -R app:app /app
+USER app
+EXPOSE 7860
+# Render injects PORT; locally it falls back to 7860.
+CMD ["sh", "-c", "python -m uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-7860}"]

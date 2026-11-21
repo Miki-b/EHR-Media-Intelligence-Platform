@@ -135,8 +135,11 @@ docker build -t ehr-demo .
 docker run -p 7860:7860 ehr-demo        # http://localhost:7860
 ```
 
-Any container host works (Fly.io, Cloud Run, Render paid tiers, Hugging Face Docker Spaces on a
-PRO plan; `scripts/deploy_space.py` uploads to the latter). For a quick look without a host, run
+`Dockerfile.render` is the same app for small hosts: embeddings run through onnxruntime
+(`EMBED_BACKEND=onnx`, `pip install -e ".[onnx]"`) instead of torch, so the API fits in about 350 MB
+and runs on Render's free tier. `render.yaml` is the matching Blueprint; the service listens on
+`$PORT`. Any container host works for the full image (Fly.io, Cloud Run, Hugging Face Docker Spaces
+on a PRO plan; `scripts/deploy_space.py` uploads to the latter). For a quick look without a host, run
 `make api` after building the frontend with `VITE_API_BASE=""` and expose port 8000 with a tunnel
 such as `cloudflared tunnel --url http://127.0.0.1:8000`.
 
