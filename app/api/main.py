@@ -15,8 +15,9 @@ from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
-from app.config import get_settings
+from app.config import ROOT, get_settings
 from app.contracts import PatientDetail, ResourceType, SearchRequest, SearchResponse
 from app.search.service import SearchFilters, SearchService
 
@@ -99,3 +100,10 @@ def reload() -> dict:
     """Drop the in-memory service so the next request picks up a fresh index."""
     reset_services()
     return {"status": "reloaded"}
+
+
+# Single-container deploys: serve the built UI from the same process. Mounted last so the
+# API routes above win; the UI is built with VITE_API_BASE="" so it calls them directly.
+_DIST = ROOT / "frontend" / "dist"
+if _DIST.is_dir():
+    app.mount("/", StaticFiles(directory=_DIST, html=True), name="ui")
