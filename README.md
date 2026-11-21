@@ -123,6 +123,23 @@ search or an open patient can be bookmarked and shared.
   text is announced through live regions; reduced-motion preferences are respected.
 - Empty, loading, no-match and API-down states each say what to do next.
 
+## Deploying the demo
+
+`Dockerfile` builds one image that compiles the UI, runs the whole pipeline on the synthetic
+dataset at build time (mock LLM plus the committed summary cache, so no API key), pre-downloads the
+embedding model, and serves UI and API together on port 7860. It needs about 2 GB of RAM at
+runtime for torch and the model.
+
+```bash
+docker build -t ehr-demo .
+docker run -p 7860:7860 ehr-demo        # http://localhost:7860
+```
+
+Any container host works (Fly.io, Cloud Run, Render paid tiers, Hugging Face Docker Spaces on a
+PRO plan; `scripts/deploy_space.py` uploads to the latter). For a quick look without a host, run
+`make api` after building the frontend with `VITE_API_BASE=""` and expose port 8000 with a tunnel
+such as `cloudflared tunnel --url http://127.0.0.1:8000`.
+
 ## Design decisions
 
 See [`docs/decisions.md`](docs/decisions.md).
