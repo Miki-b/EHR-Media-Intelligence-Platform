@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from app.fixtures import load_fixtures
-from app.search.embed import HashEmbedder, get_embedder, tokenize
+from app.search.embed import HashEmbedder, OnnxEmbedder, get_embedder, tokenize
 from app.search.index import build_index, get_collection, load_corpus
 
 FIXTURES = Path(__file__).resolve().parent.parent / "data" / "fixtures"
@@ -95,5 +95,24 @@ def test_real_minilm_model_indexes_fixtures(loaded_db, tmp_path):
 
     embedder = SentenceTransformerEmbedder("sentence-transformers/all-MiniLM-L6-v2")
     assert embedder.dimension == 384
+    stats = build_index(loaded_db, tmp_path / "chroma", embedder)
+    assert stats.chunks > 0
+
+
+def test_backend_selection_keeps_hash_for_tests(monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setenv("EMBED_BACKEND", "onnx")
+    get_settings.cache_clear()
+    assert get_settings().embed_backend == "onnx"
+    assert isinstance(get_embedder(), HashEmbedder), "EMBED_MODEL=hash wins over the backend"
+
+
+@pytest.mark.slow
+def test_onnx_backend_matches_torch_dimension(loaded_db, tmp_path):
+    embedder = OnnxEmbedder("sentence-transformers/all-MiniLM-L6-v2")
+    assert embedder.dimension == 384
+    (vec,) = embedder.encode(["elevated HbA1c"])
+    assert abs(sum(v * v for v in vec) - 1.0) < 1e-4
     stats = build_index(loaded_db, tmp_path / "chroma", embedder)
     assert stats.chunks > 0

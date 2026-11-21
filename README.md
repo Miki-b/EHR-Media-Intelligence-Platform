@@ -123,14 +123,90 @@ search or an open patient can be bookmarked and shared.
   text is announced through live regions; reduced-motion preferences are respected.
 - Empty, loading, no-match and API-down states each say what to do next.
 
+## Deploying the demo
+
+`Dockerfile` builds one image that compiles the UI, runs the whole pipeline on the synthetic
+dataset at build time (mock LLM plus the committed summary cache, so no API key), pre-downloads the
+embedding model, and serves UI and API together on port 7860. It needs about 2 GB of RAM at
+runtime for torch and the model.
+
+```bash
+docker build -t ehr-demo .
+docker run -p 7860:7860 ehr-demo        # http://localhost:7860
+```
+
+`Dockerfile.render` is the same app for small hosts: embeddings run through onnxruntime
+(`EMBED_BACKEND=onnx`, `pip install -e ".[onnx]"`) instead of torch, so the API fits in about 350 MB
+and runs on Render's free tier. `render.yaml` is the matching Blueprint; the service listens on
+`$PORT`. Any container host works for the full image (Fly.io, Cloud Run, Hugging Face Docker Spaces
+on a PRO plan; `scripts/deploy_space.py` uploads to the latter). For a quick look without a host, run
+`make api` after building the frontend with `VITE_API_BASE=""` and expose port 8000 with a tunnel
+such as `cloudflared tunnel --url http://127.0.0.1:8000`.
+
 ## Design decisions
 
 See [`docs/decisions.md`](docs/decisions.md).
 
 ## Evaluation results
 
-_Filled in from `eval/results.md` before submission._
+`make eval` writes [`eval/results.md`](eval/results.md) (search, plus the summary metrics from
+[`eval/summary_eval.py`](eval/summary_eval.py)). Numbers below are from the committed synthetic
+dataset: 18 patients, 66 indexed chunks, summaries by `claude-haiku-5-5` (prompt v2) served from the
+committed cache, MiniLM embeddings on CPU.
+
+**Search**, 10 labelled queries in [`eval/queries.yaml`](eval/queries.yaml), top 5 returned:
+
+| Metric | Value |
+| --- | --- |
+| MRR (first relevant hit) | 0.93 |
+| Recall@5 | 0.80 |
+| Precision@5 | 0.70, against a ceiling of 0.78 set by the number of labels per query |
+| Latency | tens of milliseconds per query, p95 under 150 ms across runs on a laptop CPU (budget: 2 s for 50 records) |
+
+Nine of ten queries rank a relevant record first. The one that does not is a negation case:
+for "abnormal chest x-ray" the two *normal* pre-employment films rank above the abnormal ones,
+because "no acute cardiopulmonary process" embeds close to the query. See limitations.
+
+**AI summaries**, all 18 patients:
+
+| Metric | Value |
+| --- | --- |
+| Citations resolving to a resource in the patient's bundle | 100% |
+| Key diagnoses supported by the cited records | 100% |
+| Flagged (H/L) labs mentioned in anomalies | 100% (20 of 20) |
+| Word count max / mean (limit 200) | 103 / 58.5 |
+| Disclaimer present | 100% |
+| LLM calls on a second run (cache) | 0 |
+
+How we validated summary quality: structured output through a tool schema validated by Pydantic;
+generation-time grounding checks that drop claims citing unknown ids, flag unsupported diagnoses
+and add missed abnormal labs (confidence is derived from those checks, never self-reported);
+the automated eval above; and a manual review template,
+[`docs/summary_review.md`](docs/summary_review.md), because no automated check can judge
+clinical correctness. Prompt v1 to v2 numbers are in `eval/summary_results_v1.md` versus
+`eval/summary_results.md`.
 
 ## Limitations and future work
 
-_Filled in before submission._
+- **Negation.** Dense embeddings do not distinguish "consolidation" from "no consolidation", and
+  BM25 makes it worse by rewarding the shared term. A cross-encoder reranker over the top 20
+  candidates is the standard fix and the first thing we would add.
+- **Small, synthetic corpus.** 18 patients and 10 labelled queries by one annotator. Real
+  evaluation needs more queries, a second annotator and agreement statistics, and nDCG.
+- **One result per record, not per patient.** Clinicians often want "which patients", with the
+  matching records nested. The API has what is needed; the grouping is a UI change.
+- **Lab values are text, not facets.** "HbA1c over 9" is a text match today. Indexing
+  Observations with numeric value and flag metadata would make it a structured filter.
+- **Validation is structural, not terminological.** `fhir.resources` checks required fields and
+  types; a wrong LOINC code still passes. Terminology validation needs a terminology server.
+- **Identity matching is rule-based** (normalised MRN, name similarity, DOB). It handles the
+  defects in the synthetic data; real duplicate detection would need probabilistic matching and
+  a human review queue for borderline merges.
+- **Summaries are checked for grounding, not correctness.** The eval proves every claim points
+  at a real record and every abnormal lab is mentioned; whether the chief concern is the *right*
+  one still needs a clinician, hence the review template.
+- **No auth, audit of access, or PHI controls.** Fine for synthetic data; mandatory before
+  anything real. Searches and summary views would need to be logged per user.
+- **Startup cost.** Importing torch and sentence-transformers takes tens of seconds on a laptop;
+  queries themselves take tens of milliseconds. A long-running API process hides this; a
+  serverless deployment would not.

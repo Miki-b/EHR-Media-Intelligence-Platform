@@ -127,6 +127,16 @@ Problems hit:
 - 2026-11-21 **Headless Chromium on Windows will not render narrower than ~500 px** with `--window-size`, so phone screenshots looked clipped. Driving Edge over the DevTools protocol with `Emulation.setDeviceMetricsOverride` gives a true 390 px viewport; `document.documentElement.scrollWidth === innerWidth` confirmed no horizontal overflow.
 - 2026-11-21 **Summary-chunk snippets read like data** ("document 2025-02-09: Discharged…") because the embedded summary text is a flattened record list. The UI shows them in the summary voice; a friendlier summary_text format is a small follow-up on the search side.
 
+- 2026-11-21 **Eval on real data.** Relabelled `eval/queries.yaml` against the 18 pipeline patients (10 queries, every record read by hand); fixture labels moved to `eval/queries.fixtures.yaml` and `eval.run` picks the file by `FIXTURE_MODE`. `eval.run` now calls `run_summary_eval()` so `make eval` produces one report. First pass showed two "failures" that were healthy patients with no diagnoses (check removed) and two misses that were AI summaries genuinely discussing HbA1c (labels added). The remaining misses are negation: normal pre-employment CXRs outrank abnormal ones for "abnormal chest x-ray".
+- 2026-11-21 **Two prompt versions in the summaries table.** The search service picked v2 only because it was created later; it now orders by `prompt_version = PROMPT_VERSION` first, so a re-run of an old prompt can never shadow the current summaries.
+
+- 2026-11-21 **FIXTURE_MODE was ignored for anyone who copied `.env.example`.** The
+  example set `DB_PATH=data/ehr.db` and `CHROMA_PATH=data/chroma`, which pydantic-settings
+  treats as explicitly set, so fixture mode kept the pipeline database and the demo patients
+  would overwrite real rows (ids overlap). CI never saw it because CI has no `.env`. Fixed in
+  `app/config.py`: a path that just restates the pipeline default no longer counts as an
+  override; the two lines in `.env.example` are now commented out.
+
 ## Ideas for "with more time"
 
 - Cross-encoder reranker (e.g. `ms-marco-MiniLM`) over the top 20 hybrid candidates; handles negation and phrasing far better than bi-encoder cosine alone.

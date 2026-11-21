@@ -28,6 +28,7 @@ dev = [
     "ruff>=0.5",
 ]
 openai = ["openai>=1.30"]
+onnx = ["fastembed>=0.4"]  # torch-free embeddings for small hosts (EMBED_BACKEND=onnx)
 
 [build-system]
 requires = ["setuptools>=69"]

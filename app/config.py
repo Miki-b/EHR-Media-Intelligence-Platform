@@ -8,6 +8,15 @@ from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parent.parent
+PIPELINE_DB = ROOT / "data" / "ehr.db"
+PIPELINE_CHROMA = ROOT / "data" / "chroma"
+
+
+def _is_pipeline_default(path: Path, default: Path) -> bool:
+    """True when `path` just restates the pipeline default (absolute or repo-relative), as a
+    .env copied from .env.example does; such a value is not a deliberate override."""
+    candidate = path if path.is_absolute() else ROOT / path
+    return candidate.resolve() == default.resolve()
 
 
 class Settings(BaseSettings):
@@ -21,8 +30,8 @@ class Settings(BaseSettings):
     # FIXTURE_MODE=1 keeps the committed fixture patients in their own database and
     # vector index, so they never collide with pipeline output (ids overlap: p-0001...).
     fixture_mode: bool = False
-    db_path: Path = ROOT / "data" / "ehr.db"
-    chroma_path: Path = ROOT / "data" / "chroma"
+    db_path: Path = PIPELINE_DB
+    chroma_path: Path = PIPELINE_CHROMA
     fixture_db_path: Path = ROOT / "data" / "fixtures.db"
     fixture_chroma_path: Path = ROOT / "data" / "chroma-fixtures"
     raw_dir: Path = ROOT / "data" / "raw"
@@ -31,6 +40,9 @@ class Settings(BaseSettings):
     fixtures_dir: Path = ROOT / "data" / "fixtures"
     reports_dir: Path = ROOT / "reports"
     embed_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # torch: sentence-transformers (default). onnx: the same model through fastembed /
+    # onnxruntime, ~1 GB less memory, for small hosts. EMBED_MODEL=hash ignores this.
+    embed_backend: Literal["torch", "onnx"] = "torch"
 
     api_host: str = "127.0.0.1"
     api_port: int = 8000
@@ -38,10 +50,14 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def _apply_fixture_mode(self) -> "Settings":
+        """In fixture mode, use the fixture paths unless a path was deliberately set
+        elsewhere. A value equal to the pipeline default (e.g. DB_PATH=data/ehr.db from a
+        .env copied from .env.example) is not deliberate: honouring it would load the demo
+        patients into the pipeline database, whose patient ids overlap."""
         if self.fixture_mode:
-            if "db_path" not in self.model_fields_set:
+            if _is_pipeline_default(self.db_path, PIPELINE_DB):
                 self.db_path = self.fixture_db_path
-            if "chroma_path" not in self.model_fields_set:
+            if _is_pipeline_default(self.chroma_path, PIPELINE_CHROMA):
                 self.chroma_path = self.fixture_chroma_path
         return self
 

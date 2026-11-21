@@ -1,0 +1,19 @@
+# Render Blueprint: one free web service built from Dockerfile.render.
+# Dashboard -> New -> Blueprint -> point at this repo, or create the service through the API.
+services:
+  - type: web
+    name: ehr-media-intelligence
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile.render
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: LLM_PROVIDER
+        value: mock
+      - key: EMBED_BACKEND
+        value: onnx
+      - key: CORS_ORIGINS
+        value: ""
