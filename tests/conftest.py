@@ -8,6 +8,7 @@ def _offline_settings(monkeypatch, tmp_path):
     monkeypatch.setenv("DB_PATH", str(tmp_path / "test.db"))
     monkeypatch.setenv("CHROMA_PATH", str(tmp_path / "chroma"))
     monkeypatch.setenv("REJECTED_PATH", str(tmp_path / "rejected.jsonl"))
+    monkeypatch.setenv("SUMMARY_CACHE_PATH", str(tmp_path / "summaries.jsonl"))
     from app.config import get_settings
 
     get_settings.cache_clear()
